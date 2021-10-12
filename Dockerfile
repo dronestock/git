@@ -6,7 +6,7 @@ LABEL Description="Drone持续集成Git插件，增加标签功能。"
 
 
 ENV LANG="zh_CN.UTF-8"
-ENV TIMEZONE=Asia/Shanghai
+ENV TIMEZONE=Asia/Chongqing
 
 
 # 复制文件
@@ -18,7 +18,7 @@ RUN set -ex \
     \
     \
     && apk update \
-    && apk --no-cache add git openssh-client \
+    && apk --no-cache add tzdata git openssh-client \
     \
     \
     \
