@@ -1,2 +1,2 @@
-# dronr-plugin-git
+# drone-plugin-git
 Drone持续集成Git插件
