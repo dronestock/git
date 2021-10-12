@@ -43,7 +43,7 @@ echo "-----------"
 # 判断是否需要打标签，如果需要打上并推送到服务器
 if [ -n "${PLUGIN_TAG}" ]; then
   git tag -a "${PLUGIN_TAG}" -m "${PLUGIN_COMMIT_MESSAGE}"
-  # git push --set-upstream origin "${PLUGIN_TAG}"
+  git push --set-upstream origin "${PLUGIN_TAG}"
 fi
 
 # 推送代码到远程仓库
