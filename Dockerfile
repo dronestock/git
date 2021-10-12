@@ -6,7 +6,7 @@ LABEL Description="Drone持续集成Git插件，增加标签功能。"
 
 
 ENV LANG="zh_CN.UTF-8"
-ENV TIMEZONE=/Asia/Chongqing
+ENV TIMEZONE=/Asia/Shanghai
 
 
 # 复制文件
