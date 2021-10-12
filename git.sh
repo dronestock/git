@@ -35,7 +35,7 @@ git remote add origin "${PLUGIN_REMOTE}"
 [ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${DRONE_TAG}
 
 # 执行最终配置值，支持环境变量
-PLUGIN_TAG=$(echo "${PLUGIN_TAG}")
+PLUGIN_TAG=$(eval echo "${PLUGIN_TAG}")
 echo "-----------"
 echo "$PLUGIN_TAG"
 echo "-----------"
