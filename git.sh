@@ -37,7 +37,7 @@ git remote add origin "${PLUGIN_REMOTE}"
 # 执行最终配置值，支持环境变量
 PLUGIN_TAG=$(${PLUGIN_TAG})
 echo "-----------"
-echo $PLUGIN_TAG
+echo "$PLUGIN_TAG"
 echo "-----------"
 
 # 判断是否需要打标签，如果需要打上并推送到服务器
