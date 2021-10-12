@@ -8,6 +8,7 @@ LABEL Description="Drone持续集成Git插件，增加标签功能。"
 
 # 复制文件
 COPY git.sh /bin
+RUN chmod +x /bin/git.sh
 
 
 
