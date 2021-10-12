@@ -26,6 +26,9 @@ git add .
 git commit . -m "${PLUGIN_COMMIT_MESSAGE}"
 
 # 打标签
+echo "-------------"
+echo "${PLUGIN_TAG}"
+echo "-------------"
 if [ -n "${PLUGIN_TAG}" ]; then
   git tag -a "${PLUGIN_TAG}" -m ${PLUGIN_COMMIT_MESSAGE}
 fi
