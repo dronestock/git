@@ -30,7 +30,7 @@ echo "-------------"
 echo "${PLUGIN_TAG}"
 echo "-------------"
 if [ -n "${PLUGIN_TAG}" ]; then
-  git tag -a "${PLUGIN_TAG}" -m ${PLUGIN_COMMIT_MESSAGE}
+  git tag -a "${PLUGIN_TAG}" -m ${PLUGIN_COMMIT_MESSAGE} master
 fi
 
 # 添加远程服务器并推送代码
