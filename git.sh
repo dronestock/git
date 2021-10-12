@@ -35,4 +35,4 @@ fi
 
 # 添加远程服务器并推送代码
 git remote add origin "${PLUGIN_REMOTE}"
-git push --set-upstream origin master ${PLUGIN_FORCE}
+git push --set-upstream origin master "${PLUGIN_FORCE}" "${PLUGIN_TAG}"
