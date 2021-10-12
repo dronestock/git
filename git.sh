@@ -34,13 +34,16 @@ git remote add origin "${PLUGIN_REMOTE}"
 [ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${DRONE_SEMVER_SHORT}
 [ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${DRONE_TAG}
 
-# 增加前缀
-PLUGIN_TAG=${PLUGIN_TAG_PREFIX}${PLUGIN_TAG}
+# 执行最终配置值，支持环境变量
+PLUGIN_TAG=$(${PLUGIN_TAG})
+echo "-----------"
+echo $PLUGIN_TAG
+echo "-----------"
 
 # 判断是否需要打标签，如果需要打上并推送到服务器
 if [ -n "${PLUGIN_TAG}" ]; then
   git tag -a "${PLUGIN_TAG}" -m "${PLUGIN_COMMIT_MESSAGE}"
-  git push --set-upstream origin "${PLUGIN_TAG}"
+  # git push --set-upstream origin "${PLUGIN_TAG}"
 fi
 
 # 推送代码到远程仓库
