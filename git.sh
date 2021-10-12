@@ -25,15 +25,18 @@ git add .
 [ "${PLUGIN_FORCE}" = "true" ] && PLUGIN_FORCE='--force'
 git commit . -m "${PLUGIN_COMMIT_MESSAGE}"
 
-# 打标签
-echo "-------------"
-echo "${PLUGIN_TAG}"
-echo "-------------"
+# 添加远程服务器
+git remote add origin "${PLUGIN_REMOTE}"
+
+# 打标签，如果没有设置值，使用默认环境变量的值
+[ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${TAG}
+[ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${VERSION}
+[ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${DRONE_SEMVER_SHORT}
+[ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${DRONE_TAG}
 if [ -n "${PLUGIN_TAG}" ]; then
-  git tag -a "${PLUGIN_TAG}" -m ${PLUGIN_COMMIT_MESSAGE} master
+  git tag -a "${PLUGIN_TAG}" -m "${PLUGIN_COMMIT_MESSAGE}"
+  git push --set-upstream origin "${PLUGIN_TAG}"
 fi
 
-# 添加远程服务器并推送代码
-git remote add origin "${PLUGIN_REMOTE}"
+# 推送代码到远程仓库
 git push --set-upstream origin master "${PLUGIN_FORCE}"
-git push --set-upstream origin "${PLUGIN_TAG}"
