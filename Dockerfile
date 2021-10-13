@@ -14,6 +14,7 @@ RUN set -ex \
     \
     \
     && apk update \
+    && apk --no-cache add git openssh-client \
     \
     \
     \
