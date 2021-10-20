@@ -11,7 +11,7 @@ echo "${PLUGIN_SSH_KEY}" > "${HOME}"/.ssh/id_rsa
 chmod 400 "${HOME}"/.ssh/id_rsa
 
 
-# 执行最终配置值，支持环境变量
+# 执行最终配置值，支持配置中含有环境变量
 PLUGIN_PATH=$(eval echo "${PLUGIN_PATH}")
 cd "${PLUGIN_PATH}" || exit
 
