@@ -1,0 +1,40 @@
+kind: pipeline
+type: docker
+name: Git插件
+
+
+clone:
+  disable: true
+
+
+trigger:
+  event:
+    exclude:
+      - pull_request
+
+
+steps:
+  - name: 拉代码
+    image: plugins/git
+    pull: if-not-exists
+
+  - name: 打包Docker并推送
+    image: plugins/docker
+    when:
+      branch:
+        - develop
+        - master
+    settings:
+      repo: storezhang/git
+      tags:
+        - latest
+      purge: true
+      compress: true
+      mirror: https://docker.mirrors.ustc.edu.cn
+      username: storezhang
+      password:
+        from_secret: token_docker
+
+volumes:
+  - name: deps
+    temp: { }
