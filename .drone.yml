@@ -1,62 +1,40 @@
 kind: pipeline
 type: docker
-name: Git
+name: Git插件
 
 
 clone:
   disable: true
 
 
+trigger:
+  event:
+    exclude:
+      - pull_request
+
+
 steps:
-  - name: 代码
-    image: ccr.ccs.tencentyun.com/dronestock/git
+  - name: 拉代码
+    image: plugins/git
+    pull: if-not-exists
 
-  - name: 改变
-    image: ccr.ccs.tencentyun.com/dronestock/changelog
-
-  - name: 提交
-    image: ccr.ccs.tencentyun.com/dronestock/git
+  - name: 打包Docker并推送
+    image: plugins/docker
+    when:
+      branch:
+        - develop
+        - master
     settings:
-      remote: git@github.com:dronestock/git.git
-      clear: false
-      key:
-        from_secret: ssh_key_github
-
-  - name: 编译
-    image: ccr.ccs.tencentyun.com/pangum/drone
-    volumes:
-      - name: go
-        path: /var/lib/go
-    settings:
-      output:
-        name: git
-
-  - name: 发布
-    image: ccr.ccs.tencentyun.com/dronestock/docker
-    privileged: true
-    volumes:
-      - name: docker
-        path: /var/lib/docker
-    environment:
-      PASSWORD_DOCKER:
+      repo: storezhang/git
+      tags:
+        - latest
+      purge: true
+      compress: true
+      mirror: https://docker.mirrors.ustc.edu.cn
+      username: storezhang
+      password:
         from_secret: token_docker
-      PASSWORD_CCR:
-        from_secret: password_tencentyun_ccr
-    settings:
-      repository: dronestock/git
-      registries:
-        - username: dronestock
-          password: $${PASSWORD_DOCKER}
-        - hostname: ccr.ccs.tencentyun.com
-          username: "160290688"
-          password: $${PASSWORD_CCR}
-          required: true
-
 
 volumes:
-  - name: go
-    host:
-      path: /var/lib/cache/go
-  - name: docker
-    host:
-      path: /var/lib/cache/docker
+  - name: deps
+    temp: { }
