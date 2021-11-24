@@ -1,5 +1,15 @@
 #!/bin/sh
 
+# 启动Github加速功能
+/opt/fastgithub/fastgithub start
+# 配置代理，使用FastGithub代理回事
+export proxy="http://127.0.0.1:38457"
+export http_proxy=$proxy
+export https_proxy=$proxy
+export ftp_proxy=$proxy
+export no_proxy="localhost, 127.0.0.1, ::1"
+
+
 # 匹配不是Drone插件时的使用配置
 [ -z "${PLUGIN_SSH_KEY}" ] && PLUGIN_SSH_KEY=${SSH_KEY}
 [ -z "${PLUGIN_TAG}" ] && PLUGIN_TAG=${TAG}
@@ -85,3 +95,7 @@ else
   # 推送代码到远程仓库
   git push --set-upstream origin master "${PLUGIN_FORCE}"
 fi
+
+
+# 关闭Github加速代理
+/opt/fastgithub/fastgithub stop
