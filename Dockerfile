@@ -1,4 +1,21 @@
+FROM storezhang/alpine AS builder
+
+
+# 标签修改程序版本
+ENV FAST_GITHUB_VERSION 2.1.1
+
+
+RUN apk add unzip
+RUN wget https://download.fastgit.org/dotnetcore/FastGithub/releases/download/${FAST_GITHUB_VERSION}/fastgithub_linux-x64.zip --output-document /fastgithub_linux-x64.zip
+RUN unzip fastgithub_linux-x64.zip
+RUN mv /fastgithub_linux-x64 /opt/fastgithub
+RUN chmod +x /opt/fastgithub/fastgithub
+
+
+
+# 打包真正的镜像
 FROM storezhang/alpine
+
 
 MAINTAINER storezhang "storezhang@gmail.com"
 LABEL architecture="AMD64/x86_64" version="latest" build="2021-10-12"
@@ -6,6 +23,7 @@ LABEL Description="Drone持续集成Git插件，增加标签功能"
 
 
 # 复制文件
+COPY --from=builder /opt/fastgithub /opt/fastgithub
 COPY git.sh /bin
 
 
