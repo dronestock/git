@@ -19,7 +19,7 @@ FROM storezhang/alpine
 
 MAINTAINER storezhang "storezhang@gmail.com"
 LABEL architecture="AMD64/x86_64" version="latest" build="2021-10-12"
-LABEL Description="Drone持续集成Git插件，增加标签功能"
+LABEL Description="Drone持续集成Git插件，增加标签功能以及Github加速功能。同时支持推拉模式"
 
 
 # 复制文件
