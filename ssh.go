@@ -53,11 +53,11 @@ func writeSSHKey(home string, key string, logger simaqian.Logger) (err error) {
 
 func writeSSHConfig(home string, logger simaqian.Logger) (err error) {
 	configFile := filepath.Join(home, `config`)
-	keyfileField := field.String(`config.file`, configFile)
+	configFileField := field.String(`config.file`, configFile)
 	if err = ioutil.WriteFile(configFile, []byte(sshConfig), 0400); nil != err {
-		logger.Error(`写入SSH配置文件出错`, keyfileField, field.Error(err))
+		logger.Error(`写入SSH配置文件出错`, configFileField, field.Error(err))
 	} else {
-		logger.Info(`写入SSH配置文件成功`, keyfileField)
+		logger.Info(`写入SSH配置文件成功`, configFileField)
 	}
 
 	return
