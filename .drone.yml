@@ -13,10 +13,42 @@ trigger:
       - pull_request
 
 
+environment:
+  GOPROXY: https://goproxy.io,direct
+  GOSUMDB: off
+
+
 steps:
   - name: 拉代码
     image: plugins/git
     pull: if-not-exists
+
+  - name: 清理依赖
+    image: golang
+    pull: if-not-exists
+    volumes:
+      - name: deps
+        path: /go
+    commands:
+      - go mod tidy
+
+  - name: 代码检查
+    image: golangci/golangci-lint
+    pull: if-not-exists
+    volumes:
+      - name: deps
+        path: /go
+    commands:
+      - golangci-lint run --timeout 10m -E goerr113 -E nlreturn -E bodyclose -E rowserrcheck -E gosec -E unconvert -E misspell -E lll
+
+  - name: 编译
+    image: golang
+    pull: if-not-exists
+    volumes:
+      - name: deps
+        path: /go
+    commands:
+      - CGO_ENABLED=0 GOOS=linux go build -o git
 
   - name: 打包Docker并推送
     image: plugins/docker
