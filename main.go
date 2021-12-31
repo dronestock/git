@@ -30,7 +30,7 @@ func main() {
 	}
 	// 推拉代码
 	if conf.pull() {
-		// TODO
+		err = pull(conf, logger)
 	} else {
 		err = push(conf, logger)
 	}
