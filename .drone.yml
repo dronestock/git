@@ -14,7 +14,7 @@ trigger:
 
 
 environment:
-  GOPROXY: https://goproxy.cn,direct
+  GOPROXY: https://goproxy.io,direct
   GOSUMDB: off
 
 
