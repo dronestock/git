@@ -12,7 +12,7 @@ import (
 func ssh(conf *config, logger simaqian.Logger) (err error) {
 	logger.Info(`创建目录成功`, field.String(`path`, conf.Folder))
 	home := fmt.Sprintf(`%s/.ssh`, os.Getenv(`HOME`))
-	if err = makeSSHome(home, logger); nil != err {
+	if err = makeSSHHome(home, logger); nil != err {
 		return
 	}
 	if err = writeSSHKey(home, conf.SSHKey, logger); nil != err {
@@ -23,9 +23,9 @@ func ssh(conf *config, logger simaqian.Logger) (err error) {
 	return
 }
 
-func makeSSHome(home string, logger simaqian.Logger) (err error) {
+func makeSSHHome(home string, logger simaqian.Logger) (err error) {
 	homeField := field.String(`home`, home)
-	if err = os.MkdirAll(home, os.ModePerm); nil != err {
+	if err = os.MkdirAll(home, 0700); nil != err {
 		logger.Error(`创建SSH目录出错`, homeField, field.Error(err))
 	} else {
 		logger.Info(`创建SSH目录成功`, homeField)

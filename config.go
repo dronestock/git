@@ -45,7 +45,6 @@ func (c *config) Fields() gox.Fields {
 	return []gox.Field{
 		field.String(`remote`, c.Remote),
 		field.String(`folder`, c.Folder),
-		field.Strings(`ssh.key`, c.SSHKey),
 		field.String(`branch`, c.Branch),
 		field.String(`tag`, c.Tag),
 		field.String(`author`, c.Author),
