@@ -35,7 +35,7 @@ func makeSSHome(home string, logger simaqian.Logger) (err error) {
 
 func writeSSHKey(home string, key string, logger simaqian.Logger) (err error) {
 	keyfile := filepath.Join(home, `id_rsa`)
-	if err = os.WriteFile(keyfile, []byte(key), 400); nil != err {
+	if err = os.WriteFile(keyfile, []byte(key), 0400); nil != err {
 		logger.Error(`写入密钥文件出错`, field.String(`keyfile`, keyfile), field.Error(err))
 	} else {
 		logger.Info(`写入密钥文件成功`, field.String(`keyfile`, keyfile))

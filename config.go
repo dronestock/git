@@ -67,7 +67,7 @@ func (c *config) load() (err error) {
 
 func (c *config) addEnvs(envs ...*env) {
 	if nil == c.envs {
-		c.envs = make([]string, 0, 0)
+		c.envs = make([]string, 0)
 	}
 
 	for _, _env := range envs {
