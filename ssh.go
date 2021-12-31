@@ -42,6 +42,16 @@ func writeSSHKey(home string, key string, logger simaqian.Logger) (err error) {
 	} else {
 		logger.Info(`写入密钥文件成功`, keyfileField)
 	}
+	if nil != err {
+		return
+	}
+
+	// 重新设置文件权限
+	if err = os.Chmod(keyfile, 0600); nil != err {
+		logger.Error(`修改密钥文件权限出错`, keyfileField, field.Error(err))
+	} else {
+		logger.Info(`修改密钥文件权限成功`, keyfileField)
+	}
 
 	return
 }
