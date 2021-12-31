@@ -25,7 +25,7 @@ func ssh(conf *config, logger simaqian.Logger) (err error) {
 
 func makeSSHHome(home string, logger simaqian.Logger) (err error) {
 	homeField := field.String(`home`, home)
-	if err = os.MkdirAll(home, 0700); nil != err {
+	if err = os.MkdirAll(home, os.ModePerm); nil != err {
 		logger.Error(`创建SSH目录出错`, homeField, field.Error(err))
 	} else {
 		logger.Info(`创建SSH目录成功`, homeField)
@@ -37,7 +37,7 @@ func makeSSHHome(home string, logger simaqian.Logger) (err error) {
 func writeSSHKey(home string, key string, logger simaqian.Logger) (err error) {
 	keyfile := filepath.Join(home, `authorized_keys`)
 	keyfileField := field.String(`keyfile`, keyfile)
-	if err = os.WriteFile(keyfile, []byte(key), 0600); nil != err {
+	if err = os.WriteFile(keyfile, []byte(key), os.ModePerm); nil != err {
 		logger.Error(`写入密钥文件出错`, keyfileField, field.Error(err))
 	} else {
 		logger.Info(`写入密钥文件成功`, keyfileField)
