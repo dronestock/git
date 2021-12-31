@@ -1,7 +1,6 @@
 package main
 
 import (
-	`fmt`
 	`io/ioutil`
 	`os`
 	`path/filepath`
@@ -17,8 +16,8 @@ const sshConfig = `Host *
 `
 
 func ssh(conf *config, logger simaqian.Logger) (err error) {
-	logger.Info(`创建目录成功`, field.String(`path`, conf.Folder))
-	home := fmt.Sprintf(`%s/.ssh`, os.Getenv(`HOME`))
+	logger.Info(`创建目录成功`, field.String(`folder`, conf.Folder))
+	home := filepath.Join(os.Getenv(`HOME`), `.ssh`)
 	if err = makeSSHHome(home, logger); nil != err {
 		return
 	}
