@@ -11,7 +11,7 @@ import (
 
 func git(conf *config, logger simaqian.Logger, args ...string) (err error) {
 	cmd := exec.Command(`git`, args...)
-	if cmd.Dir, err = filepath.Abs(conf.Path); nil != err {
+	if cmd.Dir, err = filepath.Abs(conf.Folder); nil != err {
 		return
 	}
 	cmd.Env = os.Environ()

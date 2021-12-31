@@ -14,10 +14,10 @@ func clear(conf *config, logger simaqian.Logger) (err error) {
 	}
 
 	// 删除本地目录
-	if err = os.RemoveAll(filepath.Join(conf.Path, `.git`)); nil != err {
-		logger.Error(`删除目录出错`, field.String(`path`, conf.Path), field.Error(err))
+	if err = os.RemoveAll(filepath.Join(conf.Folder, `.git`)); nil != err {
+		logger.Error(`删除目录出错`, field.String(`path`, conf.Folder), field.Error(err))
 	} else {
-		logger.Info(`删除目录成功`, field.String(`path`, conf.Path))
+		logger.Info(`删除目录成功`, field.String(`path`, conf.Folder))
 	}
 
 	return
