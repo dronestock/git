@@ -12,6 +12,8 @@ import (
 
 const sshConfig = `Host *
   StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  LogLevel ERROR
 `
 
 func ssh(conf *config, logger simaqian.Logger) (err error) {
