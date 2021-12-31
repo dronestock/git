@@ -38,7 +38,7 @@ steps:
     settings:
       repo: storezhang/git
       tags:
-        - latest
+        - 0.0.1
       purge: true
       compress: true
       mirror: https://docker.mirrors.ustc.edu.cn
