@@ -1,12 +1,12 @@
 FROM storezhang/alpine AS builder
 
 
-# 标签修改程序版本
+# Github加速版本
 ENV FAST_GITHUB_VERSION 2.1.2
 
 
 RUN apk add unzip
-RUN wget https://download.fastgit.org/dotnetcore/FastGithub/releases/download/${FAST_GITHUB_VERSION}/fastgithub_linux-x64.zip --output-document /fastgithub_linux-x64.zip
+RUN wget https://ghproxy.com/https://github.com/dotnetcore/FastGithub/releases/download/${FAST_GITHUB_VERSION}/fastgithub_linux-x64.zip --output-document /fastgithub_linux-x64.zip
 RUN unzip fastgithub_linux-x64.zip
 RUN mv /fastgithub_linux-x64 /opt/fastgithub
 RUN chmod +x /opt/fastgithub/fastgithub
