@@ -18,8 +18,8 @@ type config struct {
 	Mode string `default:"${PLUGIN_MODE=${MODE=push}}" validate:"required"`
 	// SSH密钥
 	SSHKey string `default:"${PLUGIN_SSH_KEY=${SSH_KEY}}" validate:"required_if=Mode push"`
-	// 路径
-	Path string `default:"${PLUGIN_PATH=${PATH=.}}" validate:"required"`
+	// 目录
+	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}" validate:"required"`
 	// 分支
 	Branch string `default:"${PLUGIN_BRANCH=${BRANCH=master}}" validate:"required"`
 	// 标签
@@ -44,7 +44,7 @@ type config struct {
 func (c *config) Fields() gox.Fields {
 	return []gox.Field{
 		field.String(`remote`, c.Remote),
-		field.String(`path`, c.Path),
+		field.String(`folder`, c.Folder),
 		field.String(`branch`, c.Branch),
 		field.String(`tag`, c.Tag),
 		field.String(`author`, c.Author),

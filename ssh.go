@@ -10,7 +10,7 @@ import (
 )
 
 func ssh(conf *config, logger simaqian.Logger) (err error) {
-	logger.Info(`创建目录成功`, field.String(`path`, conf.Path))
+	logger.Info(`创建目录成功`, field.String(`path`, conf.Folder))
 	home := fmt.Sprintf(`%s/.ssh`, os.Getenv(`HOME`))
 	if err = makeSSHome(home, logger); nil != err {
 		return
