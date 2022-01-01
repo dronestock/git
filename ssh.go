@@ -10,6 +10,7 @@ import (
 )
 
 const sshConfig = `Host *
+  IgnoreUnknown UseKeychain
   UseKeychain yes
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_rsa
