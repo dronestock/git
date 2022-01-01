@@ -25,13 +25,20 @@ type config struct {
 	// 标签
 	Tag string `default:"${PLUGIN_TAG=${TAG}}"`
 	// 作者
-	Author string `default:"${PLUGIN_AUTHOR=${AUTHOR=${DRONE_COMMIT_AUTHOR}}}" validate:"required"`
+	Author string `default:"${PLUGIN_AUTHOR=${AUTHOR=${DRONE_COMMIT_AUTHOR}}}" validate:"required_without=Commit"`
 	// 邮箱
 	Email string `default:"${PLUGIN_EMAIL=${EMAIL=${DRONE_COMMIT_AUTHOR_EMAIL}}}" validate:"required"`
 	// 提交消息
 	Message string `default:"${PLUGIN_MESSAGE=${MESSAGE=${PLUGIN_COMMIT_MESSAGE=drone}}}" validate:"required"`
 	// 是否强制提交
 	Force bool `default:"${PLUGIN_FORCE=${FORCE=true}}"`
+
+	// 子模块
+	Submodules bool `default:"${PLUGIN_SUBMODULES=${SUBMODULES=true}}"`
+	// 深度
+	Depth int `default:"${PLUGIN_DEPTH=${DEPTH=50}}"`
+	// 提交
+	Commit string `default:"${PLUGIN_COMMIT=${COMMIT=${DRONE_COMMIT}}}" validate:"required_without=Branch"`
 
 	// 是否清理
 	Clear bool `default:"${PLUGIN_CLEAR=${CLEAR=true}}"`
@@ -60,16 +67,15 @@ func (c *config) load() (err error) {
 	if err = mengpo.Set(c); nil != err {
 		return
 	}
-	err = validatorx.Struct(c)
+	if err = validatorx.Struct(c); nil != err {
+		return
+	}
+	c.envs = make([]string, 0)
 
 	return
 }
 
 func (c *config) addEnvs(envs ...*env) {
-	if nil == c.envs {
-		c.envs = make([]string, 0)
-	}
-
 	for _, _env := range envs {
 		c.envs = append(c.envs, fmt.Sprintf(`%s=%s`, _env.key, _env.value))
 	}
@@ -86,6 +92,16 @@ func (c *config) fastGithub() bool {
 func (c *config) gitForce() (force string) {
 	if c.Force {
 		force = `--force`
+	}
+
+	return
+}
+
+func (c *config) checkout() (checkout string) {
+	if `` != c.Commit {
+		checkout = c.Commit
+	} else {
+		checkout = c.Branch
 	}
 
 	return
