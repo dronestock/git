@@ -29,7 +29,6 @@ func ssh(conf *config, logger simaqian.Logger) (err error) {
 		return
 	}
 	err = writeSSHConfig(configFile, keyfile, logger)
-	// conf.addEnvs(newEnv(`GIT_SSH_COMMAND`, `ssh -o StrictHostKeyChecking=no`))
 
 	return
 }
