@@ -20,7 +20,7 @@ environment:
 
 steps:
   - name: 拉代码
-    image: storezhang/git:0.1.7
+    image: storezhang/git:0.1.8
     pull: if-not-exists
     settings:
       verbose: true
