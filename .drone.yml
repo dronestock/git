@@ -21,7 +21,7 @@ environment:
 steps:
   - name: 拉代码
     image: storezhang/git
-    pull: always
+    pull: if-not-exists
 
   - name: 编译
     image: storezhang/pangu
