@@ -6,7 +6,9 @@ import (
 
 func setup(conf *config, logger simaqian.Logger) (err error) {
 	// 加速Github
-	github(conf)
+	if err = github(conf, logger); nil != err {
+		return
+	}
 	// 清理目录
 	if err = clear(conf, logger); nil != err {
 		return
