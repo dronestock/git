@@ -20,10 +20,12 @@ func git(conf *config, logger simaqian.Logger, args ...string) (err error) {
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 	}
+
+	fields := conf.Fields().Connect(field.Strings(`args`, args...))
 	if err = cmd.Run(); nil != err {
-		logger.Error(`执行Git命令出错`, conf.Fields().Connect(field.Strings(`args`, args...)).Connect(field.Error(err))...)
+		logger.Error(`执行Git命令出错`, fields.Connect(field.Error(err))...)
 	} else {
-		logger.Debug(`执行Git命令成功`, conf.Fields().Connect(field.Strings(`args`, args...))...)
+		logger.Info(`执行Git命令成功`, fields...)
 	}
 
 	return
