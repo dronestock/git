@@ -22,6 +22,8 @@ steps:
   - name: 拉代码
     image: storezhang/git:0.1.7
     pull: if-not-exists
+    settings:
+      verbose: true
 
   - name: 编译
     image: storezhang/pangu
