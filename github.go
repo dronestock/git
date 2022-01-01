@@ -21,7 +21,7 @@ func github(conf *config, logger simaqian.Logger) (err error) {
 	}
 	cmd.Stderr = cmd.Stdout
 
-	logger.Info(`启动Github加速`, conf.Fields()...)
+	logger.Info(`开始启动Github加速`, conf.Fields()...)
 	if err = cmd.Start(); nil != err {
 		logger.Error(`Github加速出错`, conf.Fields().Connect(field.Error(err))...)
 	}
