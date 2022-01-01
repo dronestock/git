@@ -48,9 +48,9 @@ func github(conf *config, logger simaqian.Logger) (err error) {
 		newEnv(`ftp_proxy`, proxy),
 		newEnv(`no_proxy`, `localhost, 127.0.0.1, ::1`),
 	)
-	logger.Info(`Github加速成功`, conf.Fields()...)
 	// 尽量避免刚启动完成就使用代理而出现Connection refused
 	time.Sleep(time.Second)
+	logger.Info(`Github加速成功`, conf.Fields()...)
 
 	return
 }
