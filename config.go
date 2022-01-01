@@ -13,7 +13,7 @@ import (
 
 type config struct {
 	// 远程仓库地址
-	Remote string `default:"${PLUGIN_REMOTE=${REMOTE}}" validate:"required"`
+	Remote string `default:"${PLUGIN_REMOTE=${REMOTE=${DRONE_GIT_HTTP_URL}}}" validate:"required"`
 	// 模式
 	Mode string `default:"${PLUGIN_MODE=${MODE=push}}" validate:"required"`
 	// SSH密钥
