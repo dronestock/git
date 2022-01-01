@@ -39,8 +39,7 @@ func push(conf *config, logger simaqian.Logger) (err error) {
 		}
 	}
 	// 推送
-	if err = git(conf, logger, `push`, `--set-upstream`, `origin`, conf.Branch, conf.gitForce(),
-		`--verbose`, `--progress`); nil != err {
+	if err = git(conf, logger, `push`, `--set-upstream`, `origin`, conf.Branch, conf.gitForce()); nil != err {
 		return
 	}
 

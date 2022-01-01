@@ -10,9 +10,9 @@ import (
 )
 
 const sshConfig = `Host *
-  StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null
-  LogLevel ERROR
+  UseKeychain yes
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_rsa
 `
 
 func ssh(conf *config, logger simaqian.Logger) (err error) {
