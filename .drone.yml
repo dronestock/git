@@ -20,7 +20,7 @@ environment:
 
 steps:
   - name: 拉代码
-    image: plugins/git
+    image: storezhang/git:0.1.5
     pull: if-not-exists
 
   - name: 编译
@@ -38,7 +38,6 @@ steps:
     settings:
       repo: storezhang/git
       tags:
-        - 0.1.5
         - latest
       compress: true
       mirror: https://docker.mirrors.ustc.edu.cn
