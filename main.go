@@ -1,8 +1,6 @@
 package main
 
 import (
-	`time`
-
 	`github.com/storezhang/simaqian`
 )
 
@@ -36,5 +34,4 @@ func main() {
 	} else {
 		err = push(conf, logger)
 	}
-	time.Sleep(time.Hour)
 }
