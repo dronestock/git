@@ -1,6 +1,7 @@
 package main
 
 import (
+	`fmt`
 	`io/ioutil`
 	`os`
 	`path/filepath`
@@ -13,18 +14,21 @@ const sshConfig = `Host *
   IgnoreUnknown UseKeychain
   UseKeychain yes
   AddKeysToAgent yes
-  IdentityFile ~/.ssh/id_rsa
+  StrictHostKeyChecking=no
+  IdentityFile %s
 `
 
 func ssh(conf *config, logger simaqian.Logger) (err error) {
 	home := filepath.Join(os.Getenv(`HOME`), `.ssh`)
+	keyfile := filepath.Join(home, `id_rsa`)
+	configFile := filepath.Join(home, `config`)
 	if err = makeSSHHome(home, logger); nil != err {
 		return
 	}
-	if err = writeSSHKey(home, conf.SSHKey, logger); nil != err {
+	if err = writeSSHKey(keyfile, conf.SSHKey, logger); nil != err {
 		return
 	}
-	err = writeSSHConfig(home, logger)
+	err = writeSSHConfig(configFile, keyfile, logger)
 	// conf.addEnvs(newEnv(`GIT_SSH_COMMAND`, `ssh -o StrictHostKeyChecking=no`))
 
 	return
@@ -41,8 +45,7 @@ func makeSSHHome(home string, logger simaqian.Logger) (err error) {
 	return
 }
 
-func writeSSHKey(home string, key string, logger simaqian.Logger) (err error) {
-	keyfile := filepath.Join(home, `id_rsa`)
+func writeSSHKey(keyfile string, key string, logger simaqian.Logger) (err error) {
 	keyfileField := field.String(`keyfile`, keyfile)
 	if err = ioutil.WriteFile(keyfile, []byte(key), 0600); nil != err {
 		logger.Error(`写入密钥文件出错`, keyfileField, field.Error(err))
@@ -53,10 +56,9 @@ func writeSSHKey(home string, key string, logger simaqian.Logger) (err error) {
 	return
 }
 
-func writeSSHConfig(home string, logger simaqian.Logger) (err error) {
-	configFile := filepath.Join(home, `config`)
+func writeSSHConfig(configFile string, keyfile string, logger simaqian.Logger) (err error) {
 	configFileField := field.String(`config.file`, configFile)
-	if err = ioutil.WriteFile(configFile, []byte(sshConfig), 0600); nil != err {
+	if err = ioutil.WriteFile(configFile, []byte(fmt.Sprintf(sshConfig, keyfile)), 0600); nil != err {
 		logger.Error(`写入SSH配置文件出错`, configFileField, field.Error(err))
 	} else {
 		logger.Info(`写入SSH配置文件成功`, configFileField)
