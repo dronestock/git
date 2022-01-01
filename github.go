@@ -4,6 +4,7 @@ import (
 	`io`
 	`os/exec`
 	`strings`
+	`time`
 
 	`github.com/storezhang/gox/field`
 	`github.com/storezhang/simaqian`
@@ -48,6 +49,8 @@ func github(conf *config, logger simaqian.Logger) (err error) {
 		newEnv(`no_proxy`, `localhost, 127.0.0.1, ::1`),
 	)
 	logger.Info(`Github加速成功`, conf.Fields()...)
+	// 尽量避免刚启动完成就使用代理而出现Connection refused
+	time.Sleep(time.Second)
 
 	return
 }
