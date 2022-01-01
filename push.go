@@ -5,6 +5,10 @@ import (
 )
 
 func push(conf *config, logger simaqian.Logger) (err error) {
+	// 设置默认分支
+	if err = git(conf, logger, `config`, `--global`, `init.defaultBranch`, `master`); nil != err {
+		return
+	}
 	// 设置用户名
 	if err = git(conf, logger, `config`, `--global`, `user.name`, conf.Author); nil != err {
 		return
