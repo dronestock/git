@@ -24,7 +24,6 @@ LABEL Description="Drone持续集成Git插件，增加标签功能以及Github�
 
 # 复制文件
 COPY --from=builder /opt/fastgithub /opt/fastgithub
-COPY docker /
 COPY git /bin
 
 
@@ -44,8 +43,6 @@ RUN set -ex \
     \
     # 增加执行权限
     && chmod +x /bin/git \
-    # 增加执行权限，防止出现因为无执行权限导致在Docker内部无法运行的问题
-    && chmod +x /etc/s6/fastgithub/* \
     \
     \
     \

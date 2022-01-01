@@ -1,4 +1,0 @@
-#!/bin/bash
-
-# 启动FastGithub加速
-exec /opt/fastgithub/fastgithub

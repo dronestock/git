@@ -19,6 +19,10 @@ const sshConfig = `Host *
 `
 
 func ssh(conf *config, logger simaqian.Logger) (err error) {
+	if `` == conf.SSHKey {
+		return
+	}
+
 	home := filepath.Join(os.Getenv(`HOME`), `.ssh`)
 	keyfile := filepath.Join(home, `id_rsa`)
 	configFile := filepath.Join(home, `config`)

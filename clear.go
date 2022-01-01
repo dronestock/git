@@ -12,7 +12,7 @@ import (
 )
 
 func clear(conf *config, logger simaqian.Logger) (err error) {
-	if !conf.Clear {
+	if !conf.Clear || conf.pull() {
 		return
 	}
 
