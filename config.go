@@ -21,7 +21,7 @@ type config struct {
 	// 目录
 	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}" validate:"required"`
 	// 分支
-	Branch string `default:"${PLUGIN_BRANCH=${BRANCH=master}}"`
+	Branch string `default:"${PLUGIN_BRANCH=${BRANCH=master}}" validate:"required_without=Commit"`
 	// 标签
 	Tag string `default:"${PLUGIN_TAG=${TAG}}"`
 	// 作者
