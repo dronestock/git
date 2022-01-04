@@ -5,6 +5,7 @@ import (
 	`io/ioutil`
 	`os`
 	`path/filepath`
+	`strings`
 
 	`github.com/storezhang/gox/field`
 	`github.com/storezhang/simaqian`
@@ -50,6 +51,11 @@ func makeSSHHome(home string, logger simaqian.Logger) (err error) {
 
 func writeSSHKey(keyfile string, key string, logger simaqian.Logger) (err error) {
 	keyfileField := field.String(`keyfile`, keyfile)
+	// 必须以换行符结束
+	if !strings.HasSuffix(key, `\n`) {
+		key = fmt.Sprintf(`%s\n`, key)
+	}
+
 	if err = ioutil.WriteFile(keyfile, []byte(key), 0600); nil != err {
 		logger.Error(`写入密钥文件出错`, keyfileField, field.Error(err))
 	} else {
