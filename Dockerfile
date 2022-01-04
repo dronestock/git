@@ -55,4 +55,4 @@ ENTRYPOINT /bin/git
 
 
 # 配置环境变量
-ENV GOPROXY https://goproxy.cn,https://mirrors.aliyun.com/goproxy,direct
+ENV GOPROXY https://goproxy.cn,https://mirrors.aliyun.com/goproxy,https://goproxy.io,direct

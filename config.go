@@ -99,7 +99,7 @@ func (c *config) pull() bool {
 }
 
 func (c *config) fastGithub() bool {
-	return strings.Contains(c.Remote, `github`)
+	return strings.HasPrefix(c.Remote, `https://github.com`) || strings.HasPrefix(c.Remote, `http://github.com`)
 }
 
 func (c *config) gitForce() (force string) {
