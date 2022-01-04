@@ -29,7 +29,7 @@ steps:
     settings:
       output: git
 
-  - name: 打包Docker并推送
+  - name: 打包Docker到中央仓库
     image: plugins/docker
     when:
       branch:
