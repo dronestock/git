@@ -43,7 +43,7 @@ steps:
       tags:
         - latest
       compress: true
-      mirror: https://docker.mirrors.ustc.edu.cn
+      mirror: https://4lch7u25.mirror.aliyuncs.com,https://docker.mirrors.ustc.edu.cn,https://registry.docker-cn.com,https://hub-mirror.c.163.com
       username: storezhang
       password:
         from_secret: token_docker
