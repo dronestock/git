@@ -17,7 +17,7 @@ func clear(conf *config, logger simaqian.Logger) (err error) {
 		return
 	}
 
-	// 删除本地Git目录，防止重新提交时，和原来用户非同一个人
+	// 删除Git目录，防止重新提交时，和原来用户非同一个人
 	gitFolder := filepath.Join(conf.Folder, `.git`)
 	if !gox.IsFileExist(gitFolder) {
 		return
