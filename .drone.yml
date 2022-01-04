@@ -27,12 +27,13 @@ steps:
 
   - name: 编译
     image: storezhang/pangu
-    pull: if-not-exists
+    pull: always
     settings:
       output: git
 
   - name: 打包Docker到中央仓库
     image: plugins/docker
+    pull: if-not-exists
     when:
       branch:
         - develop
