@@ -5,6 +5,7 @@ import (
 	`os`
 	`strings`
 
+	`github.com/drone/envsubst`
 	`github.com/storezhang/gox`
 	`github.com/storezhang/gox/field`
 	`github.com/storezhang/mengpo`
@@ -64,13 +65,25 @@ func (c *config) Fields() gox.Fields {
 }
 
 func (c *config) load() (err error) {
-	if err = mengpo.Set(c); nil != err {
+	if err = mengpo.Set(c, mengpo.Before(c.parseEnv)); nil != err {
 		return
 	}
 	if err = validatorx.Struct(c); nil != err {
 		return
 	}
 	c.envs = make([]string, 0)
+
+	return
+}
+
+// 需要做两次环境变量
+// 第一次是加载默认值里面配置的环境变量
+// 第二次是加载默认值配置里面再包含的环境变量
+func (c *config) parseEnv(from string) (to string, err error) {
+	if to, err = envsubst.EvalEnv(from); nil != err {
+		return
+	}
+	to, err = envsubst.EvalEnv(to)
 
 	return
 }
