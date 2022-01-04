@@ -7,6 +7,7 @@ import (
 	`path`
 	`path/filepath`
 
+	`github.com/storezhang/gox`
 	`github.com/storezhang/gox/field`
 	`github.com/storezhang/simaqian`
 )
@@ -18,6 +19,10 @@ func clear(conf *config, logger simaqian.Logger) (err error) {
 
 	// 删除本地目录
 	gitFolder := filepath.Join(conf.Folder, `.git`)
+	if !gox.IsFileExist(gitFolder) {
+		return
+	}
+
 	folderField := field.String(`folder`, gitFolder)
 	if err = remove(gitFolder); nil != err {
 		logger.Error(`删除目录出错`, folderField, field.Error(err))
