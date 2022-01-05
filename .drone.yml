@@ -15,7 +15,7 @@ trigger:
 
 steps:
   - name: 拉代码
-    image: storezhang/git
+    image: dronestock/git
     pull: always
     settings:
       verbose: true
