@@ -21,7 +21,7 @@ type config struct {
 	// 目录
 	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}" validate:"required"`
 	// 目录列表
-	Folders []string `default:"${PLUGIN_FOLDERS=${FOLDERS}}`
+	Folders []string `default:"${PLUGIN_FOLDERS=${FOLDERS}}"`
 	// 分支
 	Branch string `default:"${PLUGIN_BRANCH=${BRANCH=master}}" validate:"required_without=Commit"`
 	// 标签
