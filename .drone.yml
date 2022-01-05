@@ -13,11 +13,6 @@ trigger:
       - pull_request
 
 
-environment:
-  GOPROXY: https://goproxy.cn,direct
-  GOSUMDB: off
-
-
 steps:
   - name: 拉代码
     image: storezhang/git
@@ -39,11 +34,11 @@ steps:
         - develop
         - master
     settings:
-      repo: storezhang/git
+      repo: dronestock/git
       tags:
         - latest
       compress: true
       mirror: https://mirror.ccs.tencentyun.com
-      username: storezhang
+      username: dronestock
       password:
         from_secret: token_docker
