@@ -3,6 +3,7 @@ module github.com/pangum/drone
 go 1.17
 
 require (
+	github.com/storezhang/gex v0.0.1
 	github.com/storezhang/gox v1.8.1
 	github.com/storezhang/mengpo v0.1.0
 	github.com/storezhang/simaqian v0.1.0
@@ -26,3 +27,4 @@ require (
 )
 
 // replace github.com/storezhang/mengpo => ../mengpo
+// replace github.com/storezhang/gex => ../../storezhang/gex
