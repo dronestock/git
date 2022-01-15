@@ -16,7 +16,7 @@ trigger:
 steps:
   - name: 拉代码
     image: ccr.ccs.tencentyun.com/dronestock/git
-    pull: if-not-exists
+    pull: always
     settings:
       verbose: true
 
