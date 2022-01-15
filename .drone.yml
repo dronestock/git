@@ -21,7 +21,7 @@ steps:
       verbose: true
 
   - name: 编译
-    image: storezhang/pangu
+    image: dronestock/pangu
     pull: if-not-exists
     settings:
       output: git
