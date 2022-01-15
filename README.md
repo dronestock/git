@@ -25,6 +25,7 @@ clone:
 steps:
   - name: 拉代码
     image: dronestock/git
+    # image: ccr.ccs.tencentyun.com/dronestock/git
     pull: always
     settings:
       verbose: true
@@ -38,6 +39,7 @@ steps:
 steps:
   - name: 推送Dart版本
     image: storezhang/git
+    # image: ccr.ccs.tencentyun.com/dronestock/git
     pull: always
     settings:
       remote: git@gitea.com:xxx/yyy.git
