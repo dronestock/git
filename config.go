@@ -47,7 +47,10 @@ type config struct {
 	// 是否显示调试信息
 	Verbose bool `default:"${PLUGIN_VERBOSE=${VERBOSE=false}}"`
 
-	envs []string
+	envs                  []string
+	fastgithubExe         string
+	fastgithubSuccessMark string
+	gitExe                string
 }
 
 func (c *config) Fields() gox.Fields {
@@ -72,9 +75,16 @@ func (c *config) load() (err error) {
 	if err = validatorx.Struct(c); nil != err {
 		return
 	}
-	c.envs = make([]string, 0)
+	c.init()
 
 	return
+}
+
+func (c *config) init() {
+	c.envs = make([]string, 0)
+	c.fastgithubExe = `/opt/fastgithub/fastgithub`
+	c.fastgithubSuccessMark = `FastGithub启动完成`
+	c.gitExe = `git`
 }
 
 func (c *config) addEnvs(envs ...*env) {
