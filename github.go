@@ -31,6 +31,11 @@ func github(conf *config, logger simaqian.Logger) (err error) {
 		return
 	}
 
+	// 关闭证书验证
+	if err = git(conf, logger, `config`, `--global`, `http.sslverify`, `false`); nil != err {
+		return
+	}
+
 	proxy := `http://127.0.0.1:38457`
 	conf.addEnvs(
 		newEnv(`HTTP_PROXY`, proxy),
