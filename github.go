@@ -29,19 +29,20 @@ func github(conf *config, logger simaqian.Logger) (err error) {
 		return
 	}
 
+	// 设置代理
+	proxy := `127.0.0.1:38457`
+	if err = git(conf, logger, `config`, `--global`, `http.proxy`, proxy); nil != err {
+		return
+	}
+	if err = git(conf, logger, `config`, `--global`, `https.proxy`, proxy); nil != err {
+		return
+	}
 	// 关闭证书验证
 	if err = git(conf, logger, `config`, `--global`, `http.sslverify`, `false`); nil != err {
 		return
 	}
 
-	proxy := `http://127.0.0.1:38457`
-	conf.addEnvs(
-		newEnv(`HTTP_PROXY`, proxy),
-		newEnv(`HTTPS_PROXY`, proxy),
-		newEnv(`FTP_PROXY`, proxy),
-		newEnv(`NO_PROXY`, `localhost, 127.0.0.1, ::1`),
-	)
-
+	// 记录日志
 	logger.Info(`Github加速成功`, fields...)
 
 	return
