@@ -1,7 +1,6 @@
 package main
 
 import (
-	`fmt`
 	`os`
 	`strings`
 
@@ -47,7 +46,6 @@ type config struct {
 	// 是否显示调试信息
 	Verbose bool `default:"${PLUGIN_VERBOSE=${VERBOSE=false}}"`
 
-	envs                  []string
 	fastgithubExe         string
 	fastgithubSuccessMark string
 	gitExe                string
@@ -81,16 +79,9 @@ func (c *config) load() (err error) {
 }
 
 func (c *config) init() {
-	c.envs = make([]string, 0)
 	c.fastgithubExe = `/opt/fastgithub/fastgithub`
 	c.fastgithubSuccessMark = `FastGithub启动完成`
 	c.gitExe = `git`
-}
-
-func (c *config) addEnvs(envs ...*env) {
-	for _, _env := range envs {
-		c.envs = append(c.envs, fmt.Sprintf(`%s=%s`, _env.key, _env.value))
-	}
 }
 
 func (c *config) pull() bool {
