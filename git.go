@@ -16,7 +16,7 @@ func git(conf *config, logger simaqian.Logger, args ...string) (err error) {
 	// 记录日志
 	logger.Info(`开始执行Git命令`, fields...)
 
-	options := gex.NewOptions(gex.Args(args...), gex.Dir(conf.Folder))
+	options := gex.NewOptions(gex.Args(args...), gex.Dir(conf.Folder), gex.Envs(gex.ParseEnvs(conf.envs...)...))
 	if !conf.Debug {
 		options = append(options, gex.Quiet())
 	}
