@@ -43,8 +43,10 @@ type config struct {
 
 	// 是否清理
 	Clear bool `default:"${PLUGIN_CLEAR=${CLEAR=true}}"`
-	// 是否显示调试信息
+	// 是否显示详细信息
 	Verbose bool `default:"${PLUGIN_VERBOSE=${VERBOSE=false}}"`
+	// 是否显示调试信息
+	Debug bool `default:"${PLUGIN_DEBUG=${DEBUG=false}}"`
 
 	fastgithubExe         string
 	fastgithubSuccessMark string
