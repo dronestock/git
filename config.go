@@ -51,6 +51,8 @@ type config struct {
 	fastgithubExe         string
 	fastgithubSuccessMark string
 	gitExe                string
+
+	envs []string
 }
 
 func (c *config) Fields() gox.Fields {
@@ -84,6 +86,7 @@ func (c *config) init() {
 	c.fastgithubExe = `/opt/fastgithub/fastgithub`
 	c.fastgithubSuccessMark = `FastGithub启动完成`
 	c.gitExe = `git`
+	c.envs = make([]string, 0)
 }
 
 func (c *config) pull() bool {
