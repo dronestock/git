@@ -1,6 +1,8 @@
 package main
 
 import (
+	`fmt`
+
 	`github.com/storezhang/gex`
 	`github.com/storezhang/gox`
 	`github.com/storezhang/gox/field`
@@ -31,16 +33,10 @@ func github(conf *config, logger simaqian.Logger) (err error) {
 
 	// 设置代理
 	proxy := `127.0.0.1:38457`
-	if err = git(conf, logger, `config`, `--global`, `http.proxy`, proxy); nil != err {
-		return
-	}
-	if err = git(conf, logger, `config`, `--global`, `https.proxy`, proxy); nil != err {
-		return
-	}
-	// 关闭证书验证
-	if err = git(conf, logger, `config`, `--global`, `http.sslverify`, `false`); nil != err {
-		return
-	}
+	conf.envs = append(conf.envs, fmt.Sprintf(`%s=%s`, `HTTP_PROXY`, proxy))
+	conf.envs = append(conf.envs, fmt.Sprintf(`%s=%s`, `HTTPS_PROXY`, proxy))
+	conf.envs = append(conf.envs, fmt.Sprintf(`%s=%s`, `FTP_PROXY`, proxy))
+	conf.envs = append(conf.envs, fmt.Sprintf(`%s=%s`, `NO_PROXY`, `localhost, 127.0.0.1, ::1`))
 
 	// 记录日志
 	logger.Info(`Github加速成功`, fields...)
