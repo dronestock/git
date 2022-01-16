@@ -27,7 +27,6 @@ LABEL description="Drone持续集成Git插件，增加标签功能以及Github�
 
 # 复制文件
 COPY --from=fastgithub /opt/fastgithub /opt/fastgithub
-COPY docker /
 COPY git /bin
 
 
