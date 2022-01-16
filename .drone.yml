@@ -19,6 +19,7 @@ steps:
     pull: always
     settings:
       verbose: true
+      debug: true
 
   - name: 编译
     image: dronestock/pangu
