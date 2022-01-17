@@ -48,8 +48,8 @@ type config struct {
 	// 是否显示调试信息
 	Debug bool `default:"${PLUGIN_DEBUG=${DEBUG=false}}"`
 
-	fastgithubExe         string
-	fastgithubSuccessMark string
+	fastGithubExe         string
+	fastGithubSuccessMark string
 	gitExe                string
 
 	envs []string
@@ -57,7 +57,7 @@ type config struct {
 
 func (c *config) Fields() gox.Fields {
 	return []gox.Field{
-		field.String(`remote`, c.Remote),
+		field.String(`remote`, c.remote()),
 		field.String(`folder`, c.Folder),
 		field.String(`branch`, c.Branch),
 		field.String(`tag`, c.Tag),
@@ -83,8 +83,8 @@ func (c *config) load() (err error) {
 }
 
 func (c *config) init() {
-	c.fastgithubExe = `/opt/fastgithub/fastgithub`
-	c.fastgithubSuccessMark = `FastGithub启动完成`
+	c.fastGithubExe = `/opt/fastgithub/fastgithub`
+	c.fastGithubSuccessMark = `FastGithub启动完成`
 	c.gitExe = `git`
 	c.envs = make([]string, 0)
 }
@@ -105,7 +105,7 @@ func (c *config) pull() bool {
 }
 
 func (c *config) fastGithub() bool {
-	return strings.HasPrefix(c.Remote, `https://github.com`) || strings.HasPrefix(c.Remote, `http://github.com`)
+	return strings.HasPrefix(c.remote(), `https://github.com`) || strings.HasPrefix(c.remote(), `http://github.com`)
 }
 
 func (c *config) gitForce() (force string) {
