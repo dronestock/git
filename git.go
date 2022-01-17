@@ -12,6 +12,7 @@ func git(conf *config, logger simaqian.Logger, args ...string) (err error) {
 		field.String(`exe`, conf.gitExe),
 		field.Strings(`args`, args...),
 		field.Bool(`verbose`, conf.Verbose),
+		field.Bool(`debug`, conf.Debug),
 	}
 	// 记录日志
 	logger.Info(`开始执行Git命令`, fields...)
