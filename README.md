@@ -24,8 +24,8 @@ clone:
 
 steps:
   - name: 拉代码
-    image: dronestock/git
-    # image: ccr.ccs.tencentyun.com/dronestock/git
+    # image: dronestock/git
+    image: ccr.ccs.tencentyun.com/dronestock/git
     pull: always
     settings:
       verbose: true
