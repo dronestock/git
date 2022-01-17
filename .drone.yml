@@ -24,7 +24,7 @@ steps:
         from_secret: ssh_key_github
 
   - name: 编译
-    image: ccr.ccs.tencentyun.com/dronestock/pangu
+    image: ccr.ccs.tencentyun.com/pangum/drone
     pull: if-not-exists
     settings:
       output: git
