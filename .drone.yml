@@ -25,7 +25,7 @@ steps:
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
-    pull: if-not-exists
+    pull: always
     settings:
       verbose: true
       debug: true
