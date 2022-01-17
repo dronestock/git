@@ -39,7 +39,8 @@ func github(conf *config, logger simaqian.Logger) (err error) {
 	conf.envs = append(conf.envs, fmt.Sprintf(`%s=%s`, `FTP_PROXY`, proxy))
 	conf.envs = append(conf.envs, fmt.Sprintf(`%s=%s`, `NO_PROXY`, `localhost, 127.0.0.1, ::1`))
 
-	time.Sleep(2 * time.Second)
+	// 等待FastGithub真正完成启动，防止出现connection refuse的错误
+	time.Sleep(time.Second)
 	// 记录日志
 	logger.Info(`Github加速成功`, fields...)
 
