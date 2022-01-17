@@ -89,6 +89,17 @@ func (c *config) init() {
 	c.envs = make([]string, 0)
 }
 
+func (c *config) remote() (remote string) {
+	if `` != c.SSHKey {
+		remote = os.Getenv(`DRONE_GIT_SSH_URL`)
+	}
+	if `` == c.SSHKey {
+		remote = c.Remote
+	}
+
+	return
+}
+
 func (c *config) pull() bool {
 	return `1` == os.Getenv(`DRONE_STEP_NUMBER`) || `pull` == c.Mode
 }
