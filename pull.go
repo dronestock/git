@@ -8,7 +8,7 @@ import (
 
 func pull(conf *config, logger simaqian.Logger) (err error) {
 	// 克隆项目
-	cloneArgs := []string{`clone`, conf.Remote}
+	cloneArgs := []string{`clone`, conf.remote()}
 	if conf.Submodules {
 		cloneArgs = append(cloneArgs, `--remote-submodules`, `--recurse-submodules`)
 	}

@@ -30,7 +30,7 @@ func push(conf *config, logger simaqian.Logger) (err error) {
 		return
 	}
 	// 添加远程仓库地址
-	if err = git(conf, logger, `remote`, `add`, `origin`, conf.Remote); nil != err {
+	if err = git(conf, logger, `remote`, `add`, `origin`, conf.remote()); nil != err {
 		return
 	}
 	// 如果有标签，推送标签
