@@ -29,6 +29,7 @@ steps:
     pull: always
     settings:
       verbose: true
+      debug: true
 ```
 
 ### 推代码
