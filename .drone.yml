@@ -27,6 +27,8 @@ steps:
     image: ccr.ccs.tencentyun.com/pangum/drone
     pull: if-not-exists
     settings:
+      verbose: true
+      debug: true
       output: git
 
   - name: 推送Docker镜像到腾讯云
