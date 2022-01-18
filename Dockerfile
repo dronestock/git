@@ -1,4 +1,4 @@
-FROM ccr.ccs.tencentyun.com/storezhang/alpine AS fastgithub
+FROM storezhang/alpine AS fastgithub
 
 
 # Github加速版本
@@ -15,7 +15,7 @@ RUN chmod +x /opt/fastgithub/fastgithub
 
 
 # 打包真正的镜像
-FROM ccr.ccs.tencentyun.com/storezhang/alpine
+FROM storezhang/alpine
 
 
 LABEL author="storezhang<华寅>"
@@ -59,4 +59,4 @@ ENTRYPOINT /bin/git
 
 
 # 配置环境变量
-ENV GOPROXY https://goproxy.cn,https://mirrors.aliyun.com/goproxy,https://goproxy.io,direct
+ENV GOPROXY https://goproxy.io,https://goproxy.cn,https://mirrors.aliyun.com/goproxy,direct
