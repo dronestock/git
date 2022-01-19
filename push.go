@@ -4,46 +4,50 @@ import (
 	`github.com/storezhang/simaqian`
 )
 
-func push(conf *config, logger simaqian.Logger) (err error) {
+func (p *plugin) push(logger simaqian.Logger) (undo bool, err error) {
+	if undo = p.config.pull(); undo {
+		return
+	}
+
 	// 设置默认分支
-	if err = git(conf, logger, `config`, `--global`, `init.defaultBranch`, `master`); nil != err {
+	if err = p.git(logger, `config`, `--global`, `init.defaultBranch`, `master`); nil != err {
 		return
 	}
 	// 设置用户名
-	if err = git(conf, logger, `config`, `--global`, `user.name`, conf.Author); nil != err {
+	if err = p.git(logger, `config`, `--global`, `user.name`, p.config.Author); nil != err {
 		return
 	}
 	// 设置邮箱
-	if err = git(conf, logger, `config`, `--global`, `user.email`, conf.Email); nil != err {
+	if err = p.git(logger, `config`, `--global`, `user.email`, p.config.Email); nil != err {
 		return
 	}
 	// 初始化目录
-	if err = git(conf, logger, `init`); nil != err {
+	if err = p.git(logger, `init`); nil != err {
 		return
 	}
 	// 添加当前目录到Git中
-	if err = git(conf, logger, `add`, `.`); nil != err {
+	if err = p.git(logger, `add`, `.`); nil != err {
 		return
 	}
 	// 提交
-	if err = git(conf, logger, `commit`, `.`, `--message`, conf.Message); nil != err {
+	if err = p.git(logger, `commit`, `.`, `--message`, p.config.Message); nil != err {
 		return
 	}
 	// 添加远程仓库地址
-	if err = git(conf, logger, `remote`, `add`, `origin`, conf.remote()); nil != err {
+	if err = p.git(logger, `remote`, `add`, `origin`, p.config.remote()); nil != err {
 		return
 	}
 	// 如果有标签，推送标签
-	if `` != conf.Tag {
-		if err = git(conf, logger, `tag`, `--annotate`, conf.Tag, `--message`, conf.Message); nil != err {
+	if `` != p.config.Tag {
+		if err = p.git(logger, `tag`, `--annotate`, p.config.Tag, `--message`, p.config.Message); nil != err {
 			return
 		}
-		if err = git(conf, logger, `push`, `--set-upstream`, `origin`, conf.Tag, conf.gitForce()); nil != err {
+		if err = p.git(logger, `push`, `--set-upstream`, `origin`, p.config.Tag, p.config.gitForce()); nil != err {
 			return
 		}
 	}
 	// 推送
-	if err = git(conf, logger, `push`, `--set-upstream`, `origin`, conf.Branch, conf.gitForce()); nil != err {
+	if err = p.git(logger, `push`, `--set-upstream`, `origin`, p.config.Branch, p.config.gitForce()); nil != err {
 		return
 	}
 

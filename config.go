@@ -4,13 +4,14 @@ import (
 	`os`
 	`strings`
 
+	`github.com/dronestock/drone`
 	`github.com/storezhang/gox`
 	`github.com/storezhang/gox/field`
-	`github.com/storezhang/mengpo`
-	`github.com/storezhang/validatorx`
 )
 
 type config struct {
+	drone.Config
+
 	// 远程仓库地址
 	Remote string `default:"${PLUGIN_REMOTE=${REMOTE=${DRONE_GIT_HTTP_URL}}}" validate:"required"`
 	// 模式
@@ -43,16 +44,6 @@ type config struct {
 
 	// 是否清理
 	Clear bool `default:"${PLUGIN_CLEAR=${CLEAR=true}}"`
-	// 是否显示详细信息
-	Verbose bool `default:"${PLUGIN_VERBOSE=${VERBOSE=false}}"`
-	// 是否显示调试信息
-	Debug bool `default:"${PLUGIN_DEBUG=${DEBUG=false}}"`
-
-	fastGithubExe         string
-	fastGithubSuccessMark string
-	gitExe                string
-
-	envs []string
 }
 
 func (c *config) Fields() gox.Fields {
@@ -66,27 +57,7 @@ func (c *config) Fields() gox.Fields {
 		field.String(`message`, c.Message),
 
 		field.Bool(`clear`, c.Clear),
-		field.Bool(`verbose`, c.Verbose),
 	}
-}
-
-func (c *config) load() (err error) {
-	if err = mengpo.Set(c); nil != err {
-		return
-	}
-	if err = validatorx.Struct(c); nil != err {
-		return
-	}
-	c.init()
-
-	return
-}
-
-func (c *config) init() {
-	c.fastGithubExe = `/opt/fastgithub/fastgithub`
-	c.fastGithubSuccessMark = `FastGithub启动完成`
-	c.gitExe = `git`
-	c.envs = make([]string, 0)
 }
 
 func (c *config) remote() (remote string) {

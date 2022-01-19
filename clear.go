@@ -12,19 +12,19 @@ import (
 	`github.com/storezhang/simaqian`
 )
 
-func clear(conf *config, logger simaqian.Logger) (err error) {
-	if !conf.Clear || conf.pull() {
+func (p *plugin) clear(logger simaqian.Logger) (undo bool, err error) {
+	if !p.config.Clear || p.config.pull() {
 		return
 	}
 
 	// 删除Git目录，防止重新提交时，和原来用户非同一个人
-	gitFolder := filepath.Join(conf.Folder, `.git`)
+	gitFolder := filepath.Join(p.config.Folder, `.git`)
 	if !gfx.Exist(gitFolder) {
 		return
 	}
 
 	folderField := field.String(`folder`, gitFolder)
-	if err = remove(gitFolder); nil != err {
+	if err = p.remove(gitFolder); nil != err {
 		logger.Error(`删除目录出错`, folderField, field.Error(err))
 	} else {
 		logger.Info(`删除目录成功`, folderField)
@@ -33,7 +33,7 @@ func clear(conf *config, logger simaqian.Logger) (err error) {
 	return
 }
 
-func remove(dir string) (err error) {
+func (p *plugin) remove(dir string) (err error) {
 	var fis []fs.FileInfo
 	if fis, err = ioutil.ReadDir(dir); nil != err {
 		return

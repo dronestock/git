@@ -19,26 +19,26 @@ const sshConfig = `Host *
   IdentityFile %s
 `
 
-func ssh(conf *config, logger simaqian.Logger) (err error) {
-	if `` == conf.SSHKey {
+func (p *plugin) ssh(logger simaqian.Logger) (undo bool, err error) {
+	if undo = `` == p.config.SSHKey; undo {
 		return
 	}
 
 	home := filepath.Join(os.Getenv(`HOME`), `.ssh`)
 	keyfile := filepath.Join(home, `id_rsa`)
 	configFile := filepath.Join(home, `config`)
-	if err = makeSSHHome(home, logger); nil != err {
+	if err = p.makeSSHHome(home, logger); nil != err {
 		return
 	}
-	if err = writeSSHKey(keyfile, conf.SSHKey, logger); nil != err {
+	if err = p.writeSSHKey(keyfile, logger); nil != err {
 		return
 	}
-	err = writeSSHConfig(configFile, keyfile, logger)
+	err = p.writeSSHConfig(configFile, keyfile, logger)
 
 	return
 }
 
-func makeSSHHome(home string, logger simaqian.Logger) (err error) {
+func (p *plugin) makeSSHHome(home string, logger simaqian.Logger) (err error) {
 	homeField := field.String(`home`, home)
 	if err = os.MkdirAll(home, os.ModePerm); nil != err {
 		logger.Error(`创建SSH目录出错`, homeField, field.Error(err))
@@ -49,7 +49,8 @@ func makeSSHHome(home string, logger simaqian.Logger) (err error) {
 	return
 }
 
-func writeSSHKey(keyfile string, key string, logger simaqian.Logger) (err error) {
+func (p *plugin) writeSSHKey(keyfile string, logger simaqian.Logger) (err error) {
+	key := p.config.SSHKey
 	keyfileField := field.String(`keyfile`, keyfile)
 	// 必须以换行符结束
 	if !strings.HasSuffix(key, `\n`) {
@@ -65,7 +66,7 @@ func writeSSHKey(keyfile string, key string, logger simaqian.Logger) (err error)
 	return
 }
 
-func writeSSHConfig(configFile string, keyfile string, logger simaqian.Logger) (err error) {
+func (p *plugin) writeSSHConfig(configFile string, keyfile string, logger simaqian.Logger) (err error) {
 	configFileField := field.String(`config.file`, configFile)
 	if err = ioutil.WriteFile(configFile, []byte(fmt.Sprintf(sshConfig, keyfile)), 0600); nil != err {
 		logger.Error(`写入SSH配置文件出错`, configFileField, field.Error(err))

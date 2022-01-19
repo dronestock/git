@@ -7,21 +7,21 @@ import (
 	`github.com/storezhang/simaqian`
 )
 
-func git(conf *config, logger simaqian.Logger, args ...string) (err error) {
+func (p *plugin) git(logger simaqian.Logger, args ...string) (err error) {
 	fields := gox.Fields{
-		field.String(`exe`, conf.gitExe),
+		field.String(`exe`, p.gitExe),
 		field.Strings(`args`, args...),
-		field.Bool(`verbose`, conf.Verbose),
-		field.Bool(`debug`, conf.Debug),
+		field.Bool(`verbose`, p.config.Verbose),
+		field.Bool(`debug`, p.config.Debug),
 	}
 	// 记录日志
 	logger.Info(`开始执行Git命令`, fields...)
 
-	options := gex.NewOptions(gex.Args(args...), gex.Dir(conf.Folder), gex.Envs(gex.ParseEnvs(conf.envs...)...))
-	if !conf.Debug {
+	options := gex.NewOptions(gex.Args(args...), gex.Dir(p.config.Folder), gex.Envs(gex.ParseEnvs(p.envs...)...))
+	if !p.config.Debug {
 		options = append(options, gex.Quiet())
 	}
-	if _, err = gex.Run(conf.gitExe, options...); nil != err {
+	if _, err = gex.Run(p.gitExe, options...); nil != err {
 		logger.Error(`执行Git命令出错`, fields.Connect(field.Error(err))...)
 	} else {
 		logger.Info(`执行Git命令成功`, fields...)
