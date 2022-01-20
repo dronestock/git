@@ -44,6 +44,8 @@ type config struct {
 
 	// 是否清理
 	Clear bool `default:"${PLUGIN_CLEAR=${CLEAR=true}}"`
+	// 是否启用Github加速
+	Fastgithub bool `default:"${PLUGIN_FASTGITHUB=${FASTGITHUB=false}}"`
 }
 
 func (c *config) Fields() gox.Fields {
@@ -57,6 +59,7 @@ func (c *config) Fields() gox.Fields {
 		field.String(`message`, c.Message),
 
 		field.Bool(`clear`, c.Clear),
+		field.Bool(`fastgithub`, c.Fastgithub),
 	}
 }
 
@@ -76,7 +79,7 @@ func (c *config) pull() bool {
 }
 
 func (c *config) fastGithub() bool {
-	return strings.HasPrefix(c.remote(), `https://github.com`) || strings.HasPrefix(c.remote(), `http://github.com`)
+	return c.Fastgithub && (strings.HasPrefix(c.remote(), githubHttps) || strings.HasPrefix(c.remote(), githubHttp))
 }
 
 func (c *config) gitForce() (force string) {
