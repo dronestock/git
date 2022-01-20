@@ -9,7 +9,7 @@ import (
 
 func (p *plugin) git(logger simaqian.Logger, args ...string) (err error) {
 	fields := gox.Fields{
-		field.String(`exe`, p.gitExe),
+		field.String(`exe`, gitExe),
 		field.Strings(`args`, args...),
 		field.Bool(`verbose`, p.config.Verbose),
 		field.Bool(`debug`, p.config.Debug),
@@ -21,7 +21,7 @@ func (p *plugin) git(logger simaqian.Logger, args ...string) (err error) {
 	if !p.config.Debug {
 		options = append(options, gex.Quiet())
 	}
-	if _, err = gex.Run(p.gitExe, options...); nil != err {
+	if _, err = gex.Run(gitExe, options...); nil != err {
 		logger.Error(`执行Git命令出错`, fields.Connect(field.Error(err))...)
 	} else {
 		logger.Info(`执行Git命令成功`, fields...)

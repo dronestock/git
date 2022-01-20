@@ -17,15 +17,15 @@ func (p *plugin) github(logger simaqian.Logger) (undo bool, err error) {
 
 	// 记录日志
 	fields := gox.Fields{
-		field.String(`exe`, p.fastGithubExe),
-		field.String(`success.mark`, p.fastGithubSuccessMark),
+		field.String(`exe`, fastGithubExe),
+		field.String(`success.mark`, fastGithubSuccessMark),
 	}
 	logger.Info(`开始启动Github加速`, fields...)
-	options := gex.NewOptions(gex.ContainsChecker(p.fastGithubSuccessMark), gex.Async())
+	options := gex.NewOptions(gex.ContainsChecker(fastGithubSuccessMark), gex.Async())
 	if !p.config.Verbose {
 		options = append(options, gex.Quiet())
 	}
-	if _, err = gex.Run(p.fastGithubExe, options...); nil != err {
+	if _, err = gex.Run(fastGithubExe, options...); nil != err {
 		logger.Error(`Github加速出错`, fields.Connect(field.Error(err))...)
 	}
 	if nil != err {
