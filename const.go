@@ -1,23 +1,10 @@
 package main
 
 const (
-	homeEnv        = "HOME"
-	sshHome        = ".ssh"
-	sshConfigDir   = "config"
-	sshKeyFilename = "id_rsa"
-	netrcFilename  = ".netrc"
+	fastGithubExe         = `/opt/fastgithub/fastgithub`
+	fastGithubSuccessMark = `FastGithub启动完成`
+	gitExe                = `git`
 
-	defaultFilePerm = 0600
-
-	fastGithubExe         = "/opt/fastgithub/fastgithub"
-	fastGithubSuccessMark = "FastGithub启动完成"
-	gitExe                = "git"
-	gitHome               = ".git"
-
-	githubHttps = "https://github.com"
-	githubHttp  = "http://github.com"
-
-	droneStepNumEnv   = "DRONE_STEP_NUMBER"
-	droneFirstStepNum = "1"
-	droneSshUrlEnv    = "DRONE_GIT_SSH_URL"
+	githubHttps = `https://github.com`
+	githubHttp  = `http://github.com`
 )

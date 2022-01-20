@@ -6,21 +6,13 @@ import (
 
 type plugin struct {
 	config *config
-
-	envs                  []string
-	fastGithubExe         string
-	fastGithubSuccessMark string
-	gitExe                string
+	envs   []string
 }
 
 func newPlugin() drone.Plugin {
 	return &plugin{
 		config: new(config),
-
-		envs:                  make([]string, 0),
-		fastGithubExe:         `/opt/fastgithub/fastgithub`,
-		fastGithubSuccessMark: `FastGithub启动完成`,
-		gitExe:                `git`,
+		envs:   make([]string, 0),
 	}
 }
 
