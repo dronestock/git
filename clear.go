@@ -8,26 +8,17 @@ import (
 	`path/filepath`
 
 	`github.com/storezhang/gfx`
-	`github.com/storezhang/gox/field`
-	`github.com/storezhang/simaqian`
 )
 
-func (p *plugin) clear(logger simaqian.Logger) (undo bool, err error) {
-	if !p.config.Clear || p.config.pull() {
+func (p *plugin) clear() (undo bool, err error) {
+	if undo = !p.Clear || p.pulling(); undo {
 		return
 	}
 
 	// 删除Git目录，防止重新提交时，和原来用户非同一个人
-	gitFolder := filepath.Join(p.config.Folder, `.git`)
-	if !gfx.Exist(gitFolder) {
-		return
-	}
-
-	folderField := field.String(`folder`, gitFolder)
-	if err = p.remove(gitFolder); nil != err {
-		logger.Error(`删除目录出错`, folderField, field.Error(err))
-	} else {
-		logger.Info(`删除目录成功`, folderField)
+	gitFolder := filepath.Join(p.Folder, `.git`)
+	if gfx.Exist(gitFolder) {
+		err = p.remove(gitFolder)
 	}
 
 	return
