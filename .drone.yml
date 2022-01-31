@@ -17,9 +17,6 @@ steps:
   - name: 拉代码
     image: dronestock/git
     pull: always
-    settings:
-      ssh_key:
-        from_secret: ssh_key_github
 
   - name: 编译
     image: pangum/drone
