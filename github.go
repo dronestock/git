@@ -4,31 +4,14 @@ import (
 	`fmt`
 	`time`
 
-	`github.com/storezhang/gex`
-	`github.com/storezhang/gox`
-	`github.com/storezhang/gox/field`
-	`github.com/storezhang/simaqian`
+	`github.com/dronestock/drone`
 )
 
-func (p *plugin) github(logger simaqian.Logger) (undo bool, err error) {
-	if undo = !p.config.fastGithub(); undo {
+func (p *plugin) github() (undo bool, err error) {
+	if undo = !p.fastGithub(); undo {
 		return
 	}
-
-	// 记录日志
-	fields := gox.Fields{
-		field.String(`exe`, fastGithubExe),
-		field.String(`success.mark`, fastGithubSuccessMark),
-	}
-	logger.Info(`开始启动Github加速`, fields...)
-	options := gex.NewOptions(gex.ContainsChecker(fastGithubSuccessMark), gex.Async())
-	if !p.config.Verbose {
-		options = append(options, gex.Quiet())
-	}
-	if _, err = gex.Run(fastGithubExe, options...); nil != err {
-		logger.Error(`Github加速出错`, fields.Connect(field.Error(err))...)
-	}
-	if nil != err {
+	if err = p.Exec(fastGithubExe, drone.Contains(fastGithubSuccessMark), drone.Async()); nil != err {
 		return
 	}
 
@@ -41,8 +24,6 @@ func (p *plugin) github(logger simaqian.Logger) (undo bool, err error) {
 
 	// 等待FastGithub真正完成启动，防止出现connection refuse的错误
 	time.Sleep(time.Second)
-	// 记录日志
-	logger.Info(`Github加速成功`, fields...)
 
 	return
 }

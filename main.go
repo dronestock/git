@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	panic(drone.Bootstrap(newPlugin, drone.Configs(`FOLDERS`)))
+	panic(drone.Bootstrap(newPlugin, drone.Configs(folderConfigs)))
 }
