@@ -10,7 +10,7 @@ func (p *plugin) pull() (undo bool, err error) {
 	}
 
 	// 克隆项目
-	cloneArgs := []string{`clone`, p.remote()}
+	cloneArgs := []interface{}{`clone`, p.remote()}
 	if p.Submodules {
 		cloneArgs = append(cloneArgs, `--remote-submodules`, `--recurse-submodules`)
 	}
@@ -23,7 +23,7 @@ func (p *plugin) pull() (undo bool, err error) {
 	}
 
 	// 检出提交的代码
-	checkoutArgs := []string{
+	checkoutArgs := []interface{}{
 		`checkout`,
 		p.checkout(),
 	}
