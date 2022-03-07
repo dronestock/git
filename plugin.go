@@ -88,10 +88,9 @@ func (p *plugin) Fields() gox.Fields {
 }
 
 func (p *plugin) remote() (remote string) {
-	if `` != p.SSHKey {
+	if modePull == p.Mode && `` != p.SSHKey {
 		remote = os.Getenv(droneSshUrlEnv)
-	}
-	if `` == p.SSHKey {
+	} else {
 		remote = p.Remote
 	}
 
