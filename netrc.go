@@ -34,6 +34,7 @@ func (p *plugin) netrc() (undo bool, err error) {
 
 	netrcFilepath := filepath.Join(os.Getenv(homeEnv), netrcFilename)
 	netrcConfig := fmt.Sprintf(netrcConfigFormatter, host, p.Username, p.Password)
+	fmt.Println(netrcConfig)
 	netrcFields := gox.Fields{
 		field.String(`host`, host),
 		field.String(`username`, p.Username),
