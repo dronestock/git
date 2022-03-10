@@ -13,7 +13,7 @@ type plugin struct {
 	drone.PluginBase
 
 	// 远程仓库地址
-	Remote string `default:"${PLUGIN_REMOTE=${REMOTE=${DRONE_GIT_HTTP_URL}}}" validate:"required"`
+	Remote string `default:"${PLUGIN_REMOTE=${REMOTE=${DRONE_GIT_SSH_URL=${DRONE_GIT_HTTP_URL}}}}" validate:"required"`
 	// 模式
 	Mode mode `default:"${PLUGIN_MODE=${MODE=push}}"`
 
