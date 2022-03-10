@@ -18,12 +18,16 @@ type plugin struct {
 	Remote string `default:"${PLUGIN_REMOTE=${REMOTE=${DRONE_GIT_HTTP_URL}}}" validate:"required"`
 	// 模式
 	Mode mode `default:"${PLUGIN_MODE=${MODE=push}}"`
+
+	// 用户名
+	Username string `default:"${PLUGIN_USERNAME=${USERNAME=${DRONE_NETRC_USERNAME}}}"`
+	// 密码
+	Password string `default:"${PLUGIN_PASSWORD=${PASSWORD=${DRONE_NETRC_PASSWORD}}}"`
 	// SSH密钥
 	SSHKey string `default:"${PLUGIN_SSH_KEY=${SSH_KEY}}"`
+
 	// 目录
 	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}" validate:"required"`
-	// 目录列表
-	Folders []string `default:"${PLUGIN_FOLDERS=${FOLDERS}}"`
 	// 分支
 	Branch string `default:"${PLUGIN_BRANCH=${BRANCH=master}}" validate:"required_without=Commit"`
 	// 标签
@@ -66,6 +70,7 @@ func (p *plugin) Steps() []*drone.Step {
 	return []*drone.Step{
 		drone.NewStep(p.github, drone.Name(`Github加速`)),
 		drone.NewStep(p.clear, drone.Name(`清理Git目录`)),
+		drone.NewStep(p.netrc, drone.Name(`写入授权配置`)),
 		drone.NewStep(p.ssh, drone.Name(`写入SSH配置`)),
 		drone.NewStep(p.pull, drone.Name(`拉代码`)),
 		drone.NewStep(p.push, drone.Name(`推代码`)),
