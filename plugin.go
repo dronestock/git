@@ -20,9 +20,9 @@ type plugin struct {
 	// 主机
 	Machine string `default:"${DRONE_NETRC_MACHINE}"`
 	// 用户名
-	Username string `default:"${PLUGIN_USERNAME=${USERNAME=${DRONE_COMMIT_AUTHOR=${DRONE_NETRC_USERNAME}}}}"`
+	Username string `default:"${PLUGIN_USERNAME=${DRONE_NETRC_USERNAME=${USERNAME}}}"`
 	// 密码
-	Password string `default:"${PLUGIN_PASSWORD=${PASSWORD=${DRONE_NETRC_PASSWORD}}}"`
+	Password string `default:"${PLUGIN_PASSWORD=${DRONE_NETRC_PASSWORD=${PASSWORD}}}"`
 	// SSH密钥
 	SSHKey string `default:"${PLUGIN_SSH_KEY=${SSH_KEY}}"`
 
