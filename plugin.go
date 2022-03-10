@@ -9,8 +9,6 @@ import (
 	`github.com/storezhang/gox/field`
 )
 
-const folderConfigs = `folders`
-
 type plugin struct {
 	drone.PluginBase
 
