@@ -17,6 +17,8 @@ type plugin struct {
 	// 模式
 	Mode mode `default:"${PLUGIN_MODE=${MODE=push}}"`
 
+	// 主机
+	Machine string `default:"${DRONE_NETRC_MACHINE}"`
 	// 用户名
 	Username string `default:"${PLUGIN_USERNAME=${USERNAME=${DRONE_NETRC_USERNAME}}}"`
 	// 密码
