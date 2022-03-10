@@ -5,6 +5,9 @@ const (
 	sshHome        = `.ssh`
 	sshConfigDir   = `config`
 	sshKeyFilename = `id_rsa`
+	netrcFilename  = `.netrc`
+
+	defaultFilePerm = 0600
 
 	fastGithubExe         = `/opt/fastgithub/fastgithub`
 	fastGithubSuccessMark = `FastGithub启动完成`
