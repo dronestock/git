@@ -19,6 +19,9 @@ steps:
 
   - name: 编译
     image: pangum/drone
+    volumes:
+      - name: go
+        path: /var/lib/go
     settings:
       output: git
 
@@ -26,7 +29,7 @@ steps:
     image: dronestock/docker
     privileged: true
     volumes:
-      - name: cache
+      - name: docker
         path: /var/lib/docker
     settings:
       repository: dronestock/git
@@ -36,6 +39,9 @@ steps:
 
 
 volumes:
-  - name: cache
+  - name: go
+    host:
+      path: /var/lib/cache/go
+  - name: docker
     host:
       path: /var/lib/cache/docker
