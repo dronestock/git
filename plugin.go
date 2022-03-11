@@ -37,7 +37,7 @@ type plugin struct {
 	// 邮箱
 	Email string `default:"${PLUGIN_EMAIL=${EMAIL=${DRONE_COMMIT_AUTHOR_EMAIL}}}"`
 	// 提交消息
-	Message string `default:"${PLUGIN_MESSAGE=${MESSAGE=${PLUGIN_COMMIT_MESSAGE=drone}}}"`
+	Message string `default:"${PLUGIN_MESSAGE=${MESSAGE=${DRONE_COMMIT_MESSAGE=drone}}}"`
 	// 是否强制提交
 	Force bool `default:"${PLUGIN_FORCE=${FORCE=true}}"`
 
