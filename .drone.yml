@@ -1,16 +1,10 @@
 kind: pipeline
 type: docker
-name: Git插件
+name: Git
 
 
 clone:
   disable: true
-
-
-trigger:
-  event:
-    exclude:
-      - pull_request
 
 
 steps:

@@ -8,6 +8,7 @@ import (
 )
 
 func (p *plugin) github() (undo bool, err error) {
+	fmt.Println("kkk")
 	if undo = !p.fastGithub(); undo {
 		return
 	}

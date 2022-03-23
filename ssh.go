@@ -7,7 +7,7 @@ import (
 	`path/filepath`
 	`strings`
 
-	`github.com/storezhang/gox/field`
+	`github.com/goexl/gox/field`
 )
 
 const sshConfigFormatter = `Host *

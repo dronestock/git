@@ -5,5 +5,5 @@ import (
 )
 
 func (p *plugin) git(args ...interface{}) error {
-	return p.Exec(gitExe, drone.Args(args...), drone.Dir(p.Folder), drone.Envs(p.envs...))
+	return p.Exec(gitExe, drone.Args(args...), drone.Dir(p.Folder), drone.StringEnvs(p.envs...))
 }

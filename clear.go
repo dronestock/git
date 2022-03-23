@@ -7,7 +7,7 @@ import (
 	`path`
 	`path/filepath`
 
-	`github.com/storezhang/gfx`
+	`github.com/goexl/gfx`
 )
 
 func (p *plugin) clear() (undo bool, err error) {
@@ -17,7 +17,7 @@ func (p *plugin) clear() (undo bool, err error) {
 
 	// 删除Git目录，防止重新提交时，和原来用户非同一个人
 	gitFolder := filepath.Join(p.Folder, `.git`)
-	if gfx.Exist(gitFolder) {
+	if _, exists := gfx.Exists(gitFolder); exists {
 		err = p.remove(gitFolder)
 	}
 
