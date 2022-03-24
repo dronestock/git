@@ -1,9 +1,5 @@
 package main
 
-import (
-	`fmt`
-)
-
 func (p *plugin) pull() (undo bool, err error) {
 	if undo = !p.pulling(); undo {
 		return
@@ -15,7 +11,7 @@ func (p *plugin) pull() (undo bool, err error) {
 		cloneArgs = append(cloneArgs, `--remote-submodules`, `--recurse-submodules`)
 	}
 	if 0 != p.Depth {
-		cloneArgs = append(cloneArgs, `--depth`, fmt.Sprintf(`%d`, p.Depth))
+		cloneArgs = append(cloneArgs, `--depth`, p.Depth)
 	}
 	cloneArgs = append(cloneArgs, p.Folder)
 	if err = p.git(cloneArgs...); nil != err {

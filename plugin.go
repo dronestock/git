@@ -45,7 +45,7 @@ type plugin struct {
 	// 子模块
 	Submodules bool `default:"${PLUGIN_SUBMODULES=${SUBMODULES=true}}"`
 	// 深度
-	Depth int `default:"${PLUGIN_DEPTH=${DEPTH=1}}"`
+	Depth int `default:"${PLUGIN_DEPTH=${DEPTH}}"`
 	// 提交
 	Commit string `default:"${PLUGIN_COMMIT=${COMMIT=${DRONE_COMMIT}}}" validate:"required_without=Branch"`
 
