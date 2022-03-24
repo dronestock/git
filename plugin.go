@@ -3,7 +3,6 @@ package main
 import (
 	`os`
 	`strings`
-	`time`
 
 	`github.com/dronestock/drone`
 	`github.com/goexl/gox`
@@ -69,7 +68,6 @@ func (p *plugin) Config() drone.Config {
 
 func (p *plugin) Steps() []*drone.Step {
 	return []*drone.Step{
-		drone.NewDelayStep(2 * time.Second),
 		drone.NewStep(p.github, drone.Name(`Github加速`)),
 		drone.NewStep(p.clear, drone.Name(`清理Git目录`)),
 		drone.NewStep(p.netrc, drone.Name(`写入授权配置`)),
