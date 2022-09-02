@@ -1,13 +1,11 @@
 package main
 
 import (
-	`io/fs`
-	`io/ioutil`
-	`os`
-	`path`
-	`path/filepath`
+	"os"
+	"path"
+	"path/filepath"
 
-	`github.com/goexl/gfx`
+	"github.com/goexl/gfx"
 )
 
 func (p *plugin) clear() (undo bool, err error) {
@@ -25,8 +23,8 @@ func (p *plugin) clear() (undo bool, err error) {
 }
 
 func (p *plugin) remove(dir string) (err error) {
-	var fis []fs.FileInfo
-	if fis, err = ioutil.ReadDir(dir); nil != err {
+	var fis []os.DirEntry
+	if fis, err = os.ReadDir(dir); nil != err {
 		return
 	}
 
