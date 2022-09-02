@@ -3,11 +3,20 @@ updates:
   - package-ecosystem: "gomod"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: weekly
     pull-request-branch-name:
       separator: "-"
 
   - package-ecosystem: "npm"
     directory: "/doc"
     schedule:
-      interval: "weekly"
+      interval: weekly
+    pull-request-branch-name:
+      separator: "-"
+
+  - package-ecosystem: "docker"
+    directory: /
+    schedule:
+      interval: weekly
+    pull-request-branch-name:
+      separator: "-"
