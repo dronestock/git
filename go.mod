@@ -1,11 +1,11 @@
 module github.com/dronestock/git
 
-go 1.17
+go 1.18
 
 require (
 	github.com/dronestock/drone v0.3.8
 	github.com/goexl/gfx v0.0.8
-	github.com/goexl/gox v0.0.6
+	github.com/goexl/gox v0.0.8
 )
 
 require (
@@ -22,7 +22,7 @@ require (
 	github.com/goexl/xiren v0.0.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
-	github.com/mitchellh/mapstructure v1.4.3 // indirect
+	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/rs/xid v1.4.0 // indirect
 	github.com/sirupsen/logrus v1.8.1 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
