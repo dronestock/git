@@ -1,14 +1,13 @@
 package main
 
 import (
-	`fmt`
-	`io/ioutil`
-	`os`
-	`path/filepath`
-	`strings`
+	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
 
-	`github.com/goexl/gox`
-	`github.com/goexl/gox/field`
+	"github.com/goexl/gox"
+	"github.com/goexl/gox/field"
 )
 
 const netrcConfigFormatter = `
@@ -28,7 +27,7 @@ func (p *plugin) netrc() (undo bool, err error) {
 		field.String(`machine`, p.Machine),
 		field.String(`username`, p.Username),
 	}
-	if err = ioutil.WriteFile(netrcFilepath, []byte(netrcConfig), defaultFilePerm); nil != err {
+	if err = os.WriteFile(netrcFilepath, []byte(netrcConfig), defaultFilePerm); nil != err {
 		p.Error(`写入授权文件出错`, netrcFields.Connect(field.Error(err))...)
 	}
 
