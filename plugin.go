@@ -1,16 +1,16 @@
 package main
 
 import (
-	`os`
-	`strings`
+	"os"
+	"strings"
 
-	`github.com/dronestock/drone`
-	`github.com/goexl/gox`
-	`github.com/goexl/gox/field`
+	"github.com/dronestock/drone"
+	"github.com/goexl/gox"
+	"github.com/goexl/gox/field"
 )
 
 type plugin struct {
-	drone.PluginBase
+	drone.Base
 
 	// 远程仓库地址
 	Remote string `default:"${PLUGIN_REMOTE=${REMOTE=${DRONE_GIT_HTTP_URL}}}" validate:"required"`
