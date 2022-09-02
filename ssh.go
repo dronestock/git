@@ -1,13 +1,12 @@
 package main
 
 import (
-	`fmt`
-	`io/ioutil`
-	`os`
-	`path/filepath`
-	`strings`
+	"fmt"
+	"os"
+	"path/filepath"
+	"strings"
 
-	`github.com/goexl/gox/field`
+	"github.com/goexl/gox/field"
 )
 
 const sshConfigFormatter = `Host *
@@ -54,7 +53,7 @@ func (p *plugin) writeSSHKey(keyfile string) (err error) {
 		key = fmt.Sprintf(`%s\n`, key)
 	}
 
-	if err = ioutil.WriteFile(keyfile, []byte(key), defaultFilePerm); nil != err {
+	if err = os.WriteFile(keyfile, []byte(key), defaultFilePerm); nil != err {
 		p.Error(`写入密钥文件出错`, keyfileField, field.Error(err))
 	}
 
@@ -63,7 +62,7 @@ func (p *plugin) writeSSHKey(keyfile string) (err error) {
 
 func (p *plugin) writeSSHConfig(configFile string, keyfile string) (err error) {
 	configFileField := field.String(`file`, configFile)
-	if err = ioutil.WriteFile(configFile, []byte(fmt.Sprintf(sshConfigFormatter, keyfile)), defaultFilePerm); nil != err {
+	if err = os.WriteFile(configFile, []byte(fmt.Sprintf(sshConfigFormatter, keyfile)), defaultFilePerm); nil != err {
 		p.Error(`写入SSH配置文件出错`, configFileField, field.Error(err))
 	}
 
