@@ -4,12 +4,13 @@ go 1.18
 
 require (
 	github.com/dronestock/drone v0.3.9
-	github.com/goexl/gfx v0.0.8
+	github.com/goexl/gfx v0.1.0
 	github.com/goexl/gox v0.0.8
 )
 
 require (
 	github.com/drone/envsubst v1.0.3 // indirect
+	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.0 // indirect
