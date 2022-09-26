@@ -16,7 +16,7 @@ const (
 	githubHttps = `https://github.com`
 	githubHttp  = `http://github.com`
 
-	droneStepNumEnv   = `DRONE_STEP_NUMBER`
-	droneFirstStepNum = `1`
-	droneSshUrlEnv    = `DRONE_GIT_SSH_URL`
+	droneStageNumEnv   = `DRONE_STAGE_NUMBER`
+	droneFirstStageNum = `1`
+	droneSshUrlEnv     = `DRONE_GIT_SSH_URL`
 )
