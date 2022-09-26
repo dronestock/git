@@ -103,7 +103,9 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
-	return droneFirstStepNum == os.Getenv(droneStepNumEnv) || modePull == p.Mode
+	number := os.Getenv(droneStepNumEnv)
+
+	return `` == strings.TrimSpace(number) || droneFirstStepNum == number || modePull == p.Mode
 }
 
 func (p *plugin) fastGithub() bool {
