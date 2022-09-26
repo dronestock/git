@@ -103,7 +103,7 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
-	return droneFirstStageNum == os.Getenv(droneStageNumEnv) || modePull == p.Mode
+	return droneFirstStepNum == os.Getenv(droneStepNumEnv) || modePull == p.Mode
 }
 
 func (p *plugin) fastGithub() bool {
