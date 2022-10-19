@@ -1,10 +1,10 @@
 package main
 
 import (
-	`fmt`
-	`time`
+	"fmt"
+	"time"
 
-	`github.com/dronestock/drone`
+	"github.com/dronestock/drone"
 )
 
 func (p *plugin) github() (undo bool, err error) {

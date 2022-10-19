@@ -88,7 +88,7 @@ func (p *plugin) Fields() gox.Fields {
 		field.String(`message`, p.Message),
 
 		field.Bool(`clear`, p.Clear),
-		field.Bool(`fastgithub`, p.Fastgithub),
+		field.Bool(`github.fast`, p.Fastgithub),
 	}
 }
 
