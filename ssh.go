@@ -15,6 +15,8 @@ const sshConfigFormatter = `Host *
   AddKeysToAgent yes
   StrictHostKeyChecking=no
   IdentityFile %s
+  ClientAliveInterval 30
+  ClientAliveCountMax 2
 `
 
 func (p *plugin) ssh() (undo bool, err error) {
