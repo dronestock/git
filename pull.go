@@ -13,6 +13,8 @@ func (p *plugin) pull() (undo bool, err error) {
 	if 0 != p.Depth {
 		cloneArgs = append(cloneArgs, `--depth`, p.Depth)
 	}
+	// 防止SSL证书错误
+	cloneArgs = append(cloneArgs, `http.sslVerify`, `false`)
 	cloneArgs = append(cloneArgs, p.Folder)
 	if err = p.git(cloneArgs...); nil != err {
 		return
