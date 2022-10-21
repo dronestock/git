@@ -19,7 +19,7 @@ require (
 	github.com/goexl/exc v0.0.4 // indirect
 	github.com/goexl/gex v0.2.6 // indirect
 	github.com/goexl/mengpo v0.2.0 // indirect
-	github.com/goexl/simaqian v0.1.4 // indirect
+	github.com/goexl/simaqian v0.1.5 // indirect
 	github.com/goexl/xiren v0.0.3 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
