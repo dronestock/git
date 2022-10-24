@@ -35,7 +35,7 @@ RUN set -ex \
     \
     \
     \
-    && apk update && cat /etc/hosts \
+    && apk update \
     \
     # 安装FastGithub依赖库 \
     && apk --no-cache add libgcc libstdc++ gcompat icu \
