@@ -50,6 +50,13 @@ RUN set -ex \
     \
     \
     \
+    # 加速Github
+    && su-exec ${USERNAME} echo "199.232.69.194 github.global.ssl.fastly.net" > /etc/hosts \
+    && su-exec ${USERNAME} echo "140.82.113.4 github.com" > /etc/hosts \
+    && su-exec ${USERNAME} echo "140.82.114.4 github.com" > /etc/hosts \
+    \
+    \
+    \
     && rm -rf /var/cache/apk/*
 
 
