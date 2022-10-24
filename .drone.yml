@@ -31,7 +31,6 @@ steps:
       PASSWORD_CCR:
         from_secret: password_tencentyun_ccr
     settings:
-      verbose: true
       repository: dronestock/git
       registries:
         - username: dronestock
