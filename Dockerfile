@@ -2,7 +2,7 @@ FROM storezhang/alpine AS fastgithub
 
 
 # Github加速版本
-ENV FAST_GITHUB_VERSION 2.1.2
+ENV FAST_GITHUB_VERSION 2.1.4
 WORKDIR /opt
 
 
@@ -11,6 +11,8 @@ RUN wget https://ghproxy.com/https://github.com/dotnetcore/FastGithub/releases/d
 RUN unzip fastgithub_linux-x64.zip
 RUN mv fastgithub_linux-x64 /opt/fastgithub
 RUN chmod +x /opt/fastgithub/fastgithub
+
+
 
 
 
@@ -47,13 +49,7 @@ RUN set -ex \
     \
     # 增加执行权限
     && chmod +x /bin/git \
-    \
-    \
-    \
-    # 加速Github
-    && su-exec ${USERNAME} echo "199.232.69.194 github.global.ssl.fastly.net" > /etc/hosts \
-    && su-exec ${USERNAME} echo "140.82.113.4 github.com" > /etc/hosts \
-    && su-exec ${USERNAME} echo "140.82.114.4 github.com" > /etc/hosts \
+    && chmod +x /bin/gw \
     \
     \
     \
@@ -62,8 +58,4 @@ RUN set -ex \
 
 
 # 执行命令
-ENTRYPOINT /bin/git
-
-
-# 配置环境变量
-ENV GOPROXY https://goproxy.io,https://goproxy.cn,https://mirrors.aliyun.com/goproxy,direct
+ENTRYPOINT /bin/gw
