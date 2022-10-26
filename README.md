@@ -50,7 +50,6 @@ steps:
         from_secret: gitea_ssh_key
 ```
 
-
 ## 捐助
 
 ![支持宝](https://github.com/storezhang/donate/raw/master/alipay-small.jpg)
