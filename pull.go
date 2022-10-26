@@ -15,7 +15,7 @@ func (p *plugin) pull() (undo bool, err error) {
 	}
 	// 防止SSL证书错误
 	cloneArgs = append(cloneArgs, `--config`, `http.sslVerify=false`)
-	cloneArgs = append(cloneArgs, p.Folder)
+	cloneArgs = append(cloneArgs, p.Dir)
 	if err = p.git(cloneArgs...); nil != err {
 		return
 	}

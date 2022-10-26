@@ -27,7 +27,7 @@ type plugin struct {
 	SSHKey string `default:"${PLUGIN_SSH_KEY=${SSH_KEY}}"`
 
 	// 目录
-	Folder string `default:"${PLUGIN_FOLDER=${FOLDER=.}}" validate:"required"`
+	Dir string `default:"${PLUGIN_DIR=${DIR=.}}" validate:"required"`
 	// 分支
 	Branch string `default:"${PLUGIN_BRANCH=${BRANCH=master}}" validate:"required_without=Commit"`
 	// 标签
@@ -80,7 +80,7 @@ func (p *plugin) Steps() []*drone.Step {
 func (p *plugin) Fields() gox.Fields {
 	return []gox.Field{
 		field.String(`remote`, p.remote()),
-		field.String(`folder`, p.Folder),
+		field.String(`folder`, p.Dir),
 		field.String(`branch`, p.Branch),
 		field.String(`tag`, p.Tag),
 		field.String(`author`, p.Author),
