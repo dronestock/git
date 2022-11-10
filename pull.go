@@ -6,26 +6,22 @@ func (p *plugin) pull() (undo bool, err error) {
 	}
 
 	// 克隆项目
-	cloneArgs := []any{"clone", p.remote()}
+	args := []any{"clone", p.remote()}
 	if p.Submodules {
-		cloneArgs = append(cloneArgs, "--remote-submodules", "--recurse-submodules")
+		args = append(args, "--remote-submodules", "--recurse-submodules")
 	}
 	if 0 != p.Depth {
-		cloneArgs = append(cloneArgs, "--depth", p.Depth)
+		args = append(args, "--depth", p.Depth)
 	}
 	// 防止SSL证书错误
-	cloneArgs = append(cloneArgs, "--config", "http.sslVerify=false")
-	cloneArgs = append(cloneArgs, p.Dir)
-	if err = p.git(cloneArgs...); nil != err {
+	args = append(args, "--config", "http.sslVerify=false")
+	args = append(args, p.Dir)
+	if err = p.git(args...); nil != err {
 		return
 	}
 
 	// 检出提交的代码
-	checkoutArgs := []any{
-		"checkout",
-		p.checkout(),
-	}
-	if err = p.git(checkoutArgs...); nil != err {
+	if err = p.git("checkout", p.checkout()); nil != err {
 		return
 	}
 
@@ -33,14 +29,7 @@ func (p *plugin) pull() (undo bool, err error) {
 	if !p.Submodules {
 		return
 	}
-	submoduleArgs := []any{
-		"submodule",
-		"update",
-		"--init",
-	}
-	if err = p.git(submoduleArgs...); nil != err {
-		return
-	}
+	err = p.git("submodule", "update", "--init", "--recursive", "--remote")
 
 	return
 }
