@@ -26,7 +26,7 @@ func (p *plugin) pull() (undo bool, err error) {
 		"update",
 		"--init",
 	}
-	if err = p.git(submoduleArgs); nil != err {
+	if err = p.git(submoduleArgs...); nil != err {
 		return
 	}
 
