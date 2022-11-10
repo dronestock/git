@@ -20,7 +20,19 @@ func (p *plugin) pull() (undo bool, err error) {
 		return
 	}
 
+	// 检出提交的代码
+	checkoutArgs := []any{
+		"checkout",
+		p.checkout(),
+	}
+	if err = p.git(checkoutArgs...); nil != err {
+		return
+	}
+
 	// 处理子模块因为各种原因无法下载的情况
+	if !p.Submodules {
+		return
+	}
 	submoduleArgs := []any{
 		"submodule",
 		"update",
@@ -29,13 +41,6 @@ func (p *plugin) pull() (undo bool, err error) {
 	if err = p.git(submoduleArgs...); nil != err {
 		return
 	}
-
-	// 检出提交的代码
-	checkoutArgs := []any{
-		"checkout",
-		p.checkout(),
-	}
-	err = p.git(checkoutArgs...)
 
 	return
 }
