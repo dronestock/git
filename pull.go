@@ -6,23 +6,33 @@ func (p *plugin) pull() (undo bool, err error) {
 	}
 
 	// 克隆项目
-	cloneArgs := []any{`clone`, p.remote()}
+	cloneArgs := []any{"clone", p.remote()}
 	if p.Submodules {
-		cloneArgs = append(cloneArgs, `--remote-submodules`, `--recurse-submodules`)
+		cloneArgs = append(cloneArgs, "--remote-submodules", "--recurse-submodules")
 	}
 	if 0 != p.Depth {
-		cloneArgs = append(cloneArgs, `--depth`, p.Depth)
+		cloneArgs = append(cloneArgs, "--depth", p.Depth)
 	}
 	// 防止SSL证书错误
-	cloneArgs = append(cloneArgs, `--config`, `http.sslVerify=false`)
+	cloneArgs = append(cloneArgs, "--config", "http.sslVerify=false")
 	cloneArgs = append(cloneArgs, p.Dir)
 	if err = p.git(cloneArgs...); nil != err {
 		return
 	}
 
+	// 处理子模块因为各种原因无法下载的情况
+	submoduleArgs := []any{
+		"submodule",
+		"update",
+		"--init",
+	}
+	if err = p.git(submoduleArgs); nil != err {
+		return
+	}
+
 	// 检出提交的代码
 	checkoutArgs := []any{
-		`checkout`,
+		"checkout",
 		p.checkout(),
 	}
 	err = p.git(checkoutArgs...)
