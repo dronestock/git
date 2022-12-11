@@ -23,7 +23,7 @@ steps:
     image: ccr.ccs.tencentyun.com/dronestock/git
 ```
 
-更多使用教程，请参考[文档](https://www.dronestock.tech/plugin/stock/git)
+更多使用教程，请参考[使用文档](https://www.dronestock.tech/plugin/stock/git)
 
 ## 交流
 
