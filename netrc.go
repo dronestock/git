@@ -19,8 +19,8 @@ func (p *plugin) netrc() (undo bool, err error) {
 
 	netrcFilepath := filepath.Join(os.Getenv(homeEnv), netrcFilename)
 	netrcConfig := fmt.Sprintf(netrcConfigFormatter, p.Username, p.Password)
-	netrcFields := gox.Fields{
-		field.String(`username`, p.Username),
+	netrcFields := gox.Fields[any]{
+		field.New(`username`, p.Username),
 	}
 	if err = os.WriteFile(netrcFilepath, []byte(netrcConfig), defaultFilePerm); nil != err {
 		p.Error(`写入授权文件出错`, netrcFields.Connect(field.Error(err))...)
