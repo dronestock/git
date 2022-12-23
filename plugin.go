@@ -18,9 +18,9 @@ type plugin struct {
 	Mode mode `default:"${MODE=push}"`
 
 	// 用户名
-	Username string `default:"${DRONE_NETRC_USERNAME=${USERNAME}}"`
+	Username string `default:"${USERNAME=${DRONE_NETRC_USERNAME}}"`
 	// 密码
-	Password string `default:"${DRONE_NETRC_PASSWORD=${PASSWORD}}"`
+	Password string `default:"${PASSWORD=${DRONE_NETRC_PASSWORD}}"`
 	// SSH密钥
 	SSHKey string `default:"${SSH_KEY}"`
 
