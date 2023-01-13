@@ -17,7 +17,8 @@ steps:
       - name: go
         path: /var/lib/go
     settings:
-      output: git
+      output:
+        name: git
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/docker
