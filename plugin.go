@@ -31,7 +31,7 @@ type plugin struct {
 	// 标签
 	Tag string `default:"${TAG}"`
 	// 作者
-	Author string `default:"AUTHOR=${AUTHOR=${DRONE_COMMIT_AUTHOR}}"`
+	Author string `default:"AUTHOR=${AUTHOR=${DRONE_COMMIT_AUTHOR_NAME}}"`
 	// 邮箱
 	Email string `default:"${EMAIL=${DRONE_COMMIT_AUTHOR_EMAIL}}"`
 	// 提交消息
