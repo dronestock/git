@@ -78,7 +78,9 @@ func (p *plugin) Steps() drone.Steps {
 func (p *plugin) Fields() gox.Fields[any] {
 	return gox.Fields[any]{
 		field.New("remote", p.remote()),
-		field.New("folder", p.Dir),
+		field.New("username", p.Username),
+		field.New("password", p.Password),
+		field.New("dir", p.Dir),
 		field.New("branch", p.Branch),
 		field.New("tag", p.Tag),
 		field.New("author", p.Author),
