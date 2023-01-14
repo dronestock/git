@@ -31,7 +31,7 @@ func (p *plugin) netrc() (undo bool, err error) {
 	if err = os.WriteFile(netrcFilepath, []byte(netrcConfig), defaultFilePerm); nil != err {
 		p.Error("写入授权文件出错", netrcFields.Connect(field.Error(err))...)
 	} else {
-		p.Debug("写入授权文件成功", netrcFields...)
+		p.Info("写入授权文件成功", netrcFields...)
 	}
 
 	return
