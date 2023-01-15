@@ -1,5 +1,5 @@
 package main
 
-const modePull = `pull`
+const modePull = "pull"
 
 type mode string
