@@ -1,10 +1,10 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
@@ -23,10 +23,10 @@ func newNetrcStep(plugin *plugin) *stepNetrc {
 }
 
 func (s *stepNetrc) Runnable() bool {
-	return "" != s.Username && "" != s.Password
+	return "" != strings.TrimSpace(s.Username) && "" != strings.TrimSpace(s.Password)
 }
 
-func (s *stepNetrc) Run(_ context.Context) (err error) {
+func (s *stepNetrc) Run() (err error) {
 	netrcFilepath := filepath.Join(os.Getenv(homeEnv), netrcFilename)
 	if _, se := os.Stat(netrcFilepath); nil != se && os.IsExist(se) {
 		_ = os.Remove(netrcFilepath)

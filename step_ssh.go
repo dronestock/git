@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -16,6 +15,8 @@ const sshConfigFormatter = `Host *
   AddKeysToAgent yes
   StrictHostKeyChecking=no
   IdentityFile %s
+  ClientAliveInterval 30
+  ClientAliveCountMax 2
 `
 
 type stepSsh struct {
@@ -29,10 +30,10 @@ func newSshStep(plugin *plugin) *stepSsh {
 }
 
 func (s *stepSsh) Runnable() bool {
-	return "" != s.Key
+	return ""!= s.SshKey
 }
 
-func (s *stepSsh) Run(_ context.Context) (err error) {
+func (s *stepSsh) Run() (err error) {
 	home := filepath.Join(os.Getenv(homeEnv), sshHome)
 	keyfile := filepath.Join(home, sshKeyFilename)
 	configFile := filepath.Join(home, sshConfigDir)
@@ -57,11 +58,11 @@ func (s *stepSsh) makeSSHHome(home string) (err error) {
 }
 
 func (s *stepSsh) writeSSHKey(keyfile string) (err error) {
-	key := s.Key
+	key := s.SshKey
 	keyfileField := field.New("keyfile", keyfile)
 	// 必须以换行符结束
-	if !strings.HasSuffix(key, "\n") {
-		key = fmt.Sprintf("%s\n", key)
+	if !strings.HasSuffix(key, `\n`) {
+		key = fmt.Sprintf(`%s\n`, key)
 	}
 
 	if err = os.WriteFile(keyfile, []byte(key), defaultFilePerm); nil != err {
