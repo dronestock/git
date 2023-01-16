@@ -22,7 +22,7 @@ type plugin struct {
 	// 密码
 	Password string `default:"${PLUGIN_PASSWORD=${DRONE_NETRC_PASSWORD=${PASSWORD}}}"`
 	// SSH密钥
-	SSHKey string `default:"${SSH_KEY}"`
+	SshKey string `default:"${SSH_KEY}"`
 
 	// 目录
 	Dir string `default:"${DIR=.}" validate:"required"`
@@ -66,12 +66,12 @@ func (p *plugin) Config() drone.Config {
 
 func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
-		drone.NewStep(p.boost, drone.Name("Github加速")),
-		drone.NewStep(p.clear, drone.Name("清理Git目录")),
-		drone.NewStep(p.netrc, drone.Name("写入授权配置")),
-		drone.NewStep(p.ssh, drone.Name("写入SSH配置")),
-		drone.NewStep(p.pull, drone.Name("拉代码")),
-		drone.NewStep(p.push, drone.Name("推代码")),
+		drone.NewStep(newGithubStep(p)).Name("Github加速").Build(),
+		drone.NewStep(newClearStep(p)).Name("清理Git目录").Build(),
+		drone.NewStep(newNetrcStep(p)).Name("写入授权配置").Build(),
+		drone.NewStep(newSshStep(p)).Name("写入SSH配置").Build(),
+		drone.NewStep(newPullStep(p)).Name("拉代码").Build(),
+		drone.NewStep(newPushStep(p)).Name("推代码").Build(),
 	}
 }
 
@@ -93,7 +93,7 @@ func (p *plugin) Fields() gox.Fields[any] {
 }
 
 func (p *plugin) remote() (remote string) {
-	if modePull == p.Mode && "" != p.SSHKey {
+	if modePull == p.Mode && "" != p.SshKey {
 		remote = os.Getenv(droneSshUrlEnv)
 	} else {
 		remote = p.Remote
@@ -130,5 +130,5 @@ func (p *plugin) checkout() (checkout string) {
 }
 
 func (p *plugin) clearable() bool {
-	return nil!=p.Clear&&*p.Clear
+	return nil != p.Clear && *p.Clear
 }

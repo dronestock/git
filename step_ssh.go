@@ -19,36 +19,46 @@ const sshConfigFormatter = `Host *
   ClientAliveCountMax 2
 `
 
-func (p *plugin) ssh() (undo bool, err error) {
-	if undo = `` == p.SSHKey; undo {
-		return
-	}
+type stepSsh struct {
+	*plugin
+}
 
+func newSshStep(plugin *plugin) *stepSsh {
+	return &stepSsh{
+		plugin: plugin,
+	}
+}
+
+func (s *stepSsh) Runnable() bool {
+	return ""!= s.SshKey
+}
+
+func (s *stepSsh) Run() (err error) {
 	home := filepath.Join(os.Getenv(homeEnv), sshHome)
 	keyfile := filepath.Join(home, sshKeyFilename)
 	configFile := filepath.Join(home, sshConfigDir)
-	if err = p.makeSSHHome(home); nil != err {
+	if err = s.makeSSHHome(home); nil != err {
 		return
 	}
-	if err = p.writeSSHKey(keyfile); nil != err {
+	if err = s.writeSSHKey(keyfile); nil != err {
 		return
 	}
-	err = p.writeSSHConfig(configFile, keyfile)
+	err = s.writeSSHConfig(configFile, keyfile)
 
 	return
 }
 
-func (p *plugin) makeSSHHome(home string) (err error) {
+func (s *stepSsh) makeSSHHome(home string) (err error) {
 	homeField := field.New("home", home)
 	if err = os.MkdirAll(home, os.ModePerm); nil != err {
-		p.Error("创建SSH目录出错", homeField, field.Error(err))
+		s.Error("创建SSH目录出错", homeField, field.Error(err))
 	}
 
 	return
 }
 
-func (p *plugin) writeSSHKey(keyfile string) (err error) {
-	key := p.SSHKey
+func (s *stepSsh) writeSSHKey(keyfile string) (err error) {
+	key := s.SshKey
 	keyfileField := field.New("keyfile", keyfile)
 	// 必须以换行符结束
 	if !strings.HasSuffix(key, `\n`) {
@@ -56,16 +66,16 @@ func (p *plugin) writeSSHKey(keyfile string) (err error) {
 	}
 
 	if err = os.WriteFile(keyfile, []byte(key), defaultFilePerm); nil != err {
-		p.Error("写入密钥文件出错", keyfileField, field.Error(err))
+		s.Error("写入密钥文件出错", keyfileField, field.Error(err))
 	}
 
 	return
 }
 
-func (p *plugin) writeSSHConfig(configFile string, keyfile string) (err error) {
+func (s *stepSsh) writeSSHConfig(configFile string, keyfile string) (err error) {
 	configFileField := field.New("file", configFile)
 	if err = os.WriteFile(configFile, []byte(fmt.Sprintf(sshConfigFormatter, keyfile)), defaultFilePerm); nil != err {
-		p.Error("写入SSH配置文件出错", configFileField, field.Error(err))
+		s.Error("写入SSH配置文件出错", configFileField, field.Error(err))
 	}
 
 	return
