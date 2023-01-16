@@ -3,7 +3,7 @@ package main
 const (
 	homeEnv        = `HOME`
 	sshHome        = `.ssh`
-	sshConfigDir   = `commit`
+	sshConfigDir   = `config`
 	sshKeyFilename = `id_rsa`
 	netrcFilename  = `.netrc`
 
