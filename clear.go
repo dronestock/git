@@ -9,7 +9,7 @@ import (
 )
 
 func (p *plugin) clear() (undo bool, err error) {
-	if undo = !p.Clear || p.pulling(); undo {
+	if undo = !p.clearable() || p.pulling(); undo {
 		return
 	}
 
