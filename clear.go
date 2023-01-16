@@ -14,7 +14,7 @@ func (p *plugin) clear() (undo bool, err error) {
 	}
 
 	// 删除Git目录，防止重新提交时，和原来用户非同一个人
-	gitFolder := filepath.Join(p.Dir, `.git`)
+	gitFolder := filepath.Join(p.Dir, ".git")
 	if _, exists := gfx.Exists(gitFolder); exists {
 		err = p.remove(gitFolder)
 	}

@@ -47,7 +47,7 @@ type plugin struct {
 	Commit string `default:"${COMMIT=${DRONE_COMMIT}}" validate:"required_without=Branch"`
 
 	// 是否清理
-	Clear bool `default:"${CLEAR=true}"`
+	Clear bool `default:"${CLEAR}"`
 	// 是否启用Github加速
 	Github github `default:"${GITHUB}"`
 
