@@ -14,7 +14,7 @@ func (p *plugin) pull() (undo bool, err error) {
 		args = append(args, "--depth", p.Depth)
 	}
 	// 防止SSL证书错误
-	args = append(args, "--config", "http.sslVerify=false")
+	args = append(args, "--commit", "http.sslVerify=false")
 	args = append(args, p.Dir)
 	if err = p.git(args...); nil != err {
 		return

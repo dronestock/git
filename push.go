@@ -10,21 +10,11 @@ func (p *plugin) push() (undo bool, err error) {
 	}
 
 	if se := p.git("status"); nil != se {
-		err = p.config()
+		err = p.commit()
 	} else {
 		p.Debug("是完整的Git仓库，无需初始化和配置", field.New("dir", p.Dir))
 	}
 	if nil != err {
-		return
-	}
-
-	// 添加当前目录到Git中
-	if err = p.git("add", "."); nil != err {
-		return
-	}
-
-	// 提交
-	if err = p.git("commit", ".", "--message", p.Message); nil != err {
 		return
 	}
 
