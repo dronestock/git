@@ -1,16 +1,11 @@
 package main
 
-import (
-	"github.com/dronestock/drone"
-)
-
 func (p *plugin) git(args ...any) error {
-	return p.Exec(
-		gitExe,
-		drone.Args(args...),
-		drone.Dir(p.Dir),
-		drone.Env(`GIT_HTTP_LOW_SPEED_LIMIT`, `1024`),
-		drone.Env(`GIT_HTTP_LOW_SPEED_TIME`, `60`),
-		drone.StringEnvs(p.envs...),
-	)
+	return p.Command(gitExe).
+		Args(args...).
+		Dir(p.Dir).
+		Environment("GIT_HTTP_LOW_SPEED_LIMIT", "1024").
+		Environment("GIT_HTTP_LOW_SPEED_TIME", "60").
+		StringEnvironments(p.envs...).
+		Exec()
 }
