@@ -33,13 +33,13 @@ func (p *plugin) push() (undo bool, err error) {
 		if err = p.git("tag", "--annotate", p.Tag, "--message", p.Message); nil != err {
 			return
 		}
-		if err = p.git("push", "--set-upstream", "original", p.Tag, p.gitForce()); nil != err {
+		if err = p.git("push", "--set-upstream", "origin", p.Tag, p.gitForce()); nil != err {
 			return
 		}
 	}
 
 	// 推送
-	if err = p.git("push", "--set-upstream", "original", p.Branch, p.gitForce()); nil != err {
+	if err = p.git("push", "--set-upstream", "origin", p.Branch, p.gitForce()); nil != err {
 		return
 	}
 

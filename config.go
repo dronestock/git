@@ -22,7 +22,7 @@ func (p *plugin) config() (err error) {
 	}
 
 	// 添加远程仓库地址
-	err = p.git("remote", "add", "original", p.remote())
+	err = p.git("remote", "add", "origin", p.remote())
 
 	return
 }
