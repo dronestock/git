@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
@@ -24,7 +23,7 @@ func newNetrcStep(plugin *plugin) *stepNetrc {
 }
 
 func (s *stepNetrc) Runnable() bool {
-	return "" != strings.TrimSpace(s.Username) && "" != strings.TrimSpace(s.Password)
+	return "" != s.Username && "" != s.Password
 }
 
 func (s *stepNetrc) Run(_ context.Context) (err error) {
