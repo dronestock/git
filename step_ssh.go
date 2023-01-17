@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -30,10 +31,10 @@ func newSshStep(plugin *plugin) *stepSsh {
 }
 
 func (s *stepSsh) Runnable() bool {
-	return ""!= s.SshKey
+	return "" != s.SshKey
 }
 
-func (s *stepSsh) Run() (err error) {
+func (s *stepSsh) Run(_ context.Context) (err error) {
 	home := filepath.Join(os.Getenv(homeEnv), sshHome)
 	keyfile := filepath.Join(home, sshKeyFilename)
 	configFile := filepath.Join(home, sshConfigDir)

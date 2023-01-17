@@ -3,7 +3,7 @@ module github.com/dronestock/git
 go 1.19
 
 require (
-	github.com/dronestock/drone v0.6.7
+	github.com/dronestock/drone v0.6.8
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.1.6
 )
@@ -34,7 +34,3 @@ require (
 	golang.org/x/sys v0.4.0 // indirect
 	golang.org/x/text v0.6.0 // indirect
 )
-
-// replace github.com/storezhang/mengpo => ../mengpo
-// replace github.com/storezhang/gex => ../../storezhang/gex
-// replace github.com/dronestock/drone => ../drone

@@ -1,5 +1,9 @@
 package main
 
+import (
+	"context"
+)
+
 type stepPull struct {
 	*plugin
 }
@@ -14,7 +18,7 @@ func (s *stepPull) Runnable() bool {
 	return s.pulling()
 }
 
-func (s *stepPull) Run() (err error) {
+func (s *stepPull) Run(_ context.Context) (err error) {
 	// 克隆项目
 	args := []any{"clone", s.remote()}
 	if s.Submodules {
