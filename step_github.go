@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -21,7 +22,7 @@ func (s *stepGithub) Runnable() bool {
 	return s.boostGithub()
 }
 
-func (s *stepGithub) Run() (err error) {
+func (s *stepGithub) Run(_ context.Context) (err error) {
 	command := s.Command(fastGithubExe)
 	command.Async()
 	command.Checker(drone.Contains(fastGithubSuccessMark))

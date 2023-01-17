@@ -1,6 +1,8 @@
 package main
 
 import (
+	"context"
+
 	"github.com/goexl/gox/field"
 )
 
@@ -18,7 +20,7 @@ func (s *stepPush) Runnable() bool {
 	return !s.pulling()
 }
 
-func (s *stepPush) Run() (err error) {
+func (s *stepPush) Run(_ context.Context) (err error) {
 	if se := s.git("status"); nil != se {
 		err = s.commit()
 	} else {
