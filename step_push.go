@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/goexl/gox/field"
+	"github.com/goexl/gox/rand"
 )
 
 type stepPush struct {
@@ -30,18 +31,24 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 		return
 	}
 
+	name:=rand.New().String().Generate()
+	// 添加远程仓库地址
+	if err = s.git("remote", "add", name, s.remote()); nil != err {
+		return
+	}
+
 	// 如果有标签，推送标签
 	if "" != s.Tag {
 		if err = s.git("tag", "--annotate", s.Tag, "--message", s.Message); nil != err {
 			return
 		}
-		if err = s.git("push", "--set-upstream", "origin", s.Tag, s.gitForce()); nil != err {
+		if err = s.git("push", "--set-upstream", name, s.Tag, s.gitForce()); nil != err {
 			return
 		}
 	}
 
 	// 推送
-	err = s.git("push", "--set-upstream", "origin", s.Branch, s.gitForce())
+	err = s.git("push", "--set-upstream", name, s.Branch, s.gitForce())
 
 	return
 }
