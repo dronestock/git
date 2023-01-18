@@ -31,7 +31,7 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 		return
 	}
 
-	name:=rand.New().String().Generate()
+	name := rand.New().String().Generate()
 	// 添加远程仓库地址
 	if err = s.git("remote", "add", name, s.remote()); nil != err {
 		return
