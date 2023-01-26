@@ -29,7 +29,7 @@ func newSshStep(plugin *plugin) *stepSsh {
 }
 
 func (s *stepSsh) Runnable() bool {
-	return "" != s.SshKey
+	return "" != s.Key
 }
 
 func (s *stepSsh) Run(_ context.Context) (err error) {
@@ -57,7 +57,7 @@ func (s *stepSsh) makeSSHHome(home string) (err error) {
 }
 
 func (s *stepSsh) writeSSHKey(keyfile string) (err error) {
-	key := s.SshKey
+	key := s.Key
 	keyfileField := field.New("keyfile", keyfile)
 	// 必须以换行符结束
 	if !strings.HasSuffix(key, `\n`) {

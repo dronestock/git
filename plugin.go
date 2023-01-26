@@ -21,8 +21,8 @@ type plugin struct {
 	Username string `default:"${PLUGIN_USERNAME=${DRONE_NETRC_USERNAME=${USERNAME}}}"`
 	// 密码
 	Password string `default:"${PLUGIN_PASSWORD=${DRONE_NETRC_PASSWORD=${PASSWORD}}}"`
-	// SSH密钥
-	SshKey string `default:"${SSH_KEY}"`
+	// 密钥
+	Key string `default:"${KEY}"`
 
 	// 目录
 	Dir string `default:"${DIR=.}" validate:"required"`
@@ -93,7 +93,7 @@ func (p *plugin) Fields() gox.Fields[any] {
 }
 
 func (p *plugin) remote() (remote string) {
-	if modePull == p.Mode && "" != p.SshKey {
+	if modePull == p.Mode && "" != p.Key {
 		remote = os.Getenv(droneSshUrlEnv)
 	} else {
 		remote = p.Remote
