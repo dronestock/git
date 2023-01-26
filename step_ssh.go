@@ -60,7 +60,7 @@ func (s *stepSsh) writeSSHKey(keyfile string) (err error) {
 	key := s.Key
 	keyfileField := field.New("keyfile", keyfile)
 	// 必须以换行符结束
-	if !strings.HasSuffix(key, `\n`) {
+	if !strings.HasSuffix(key, "\n") {
 		key = fmt.Sprintf(`%s\n`, key)
 	}
 
