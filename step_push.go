@@ -23,8 +23,9 @@ func (s *stepPush) Runnable() bool {
 
 func (s *stepPush) Run(_ context.Context) (err error) {
 	if se := s.git("status"); nil != se {
-		err = s.commit()
+		err = s.init()
 	} else {
+		err = s.commit()
 		s.Debug("是完整的Git仓库，无需初始化和配置", field.New("dir", s.Dir))
 	}
 	if nil != err {
