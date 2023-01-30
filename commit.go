@@ -1,8 +1,8 @@
 package main
 
 func (p *plugin) commit() (err error) {
-	// 添加当前目录到Git中
-	if err = p.git("add", "."); nil != err {
+	// 只添加改变的文件
+	if err = p.git("add", "--update", "."); nil != err {
 		return
 	}
 
