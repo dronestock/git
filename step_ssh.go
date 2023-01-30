@@ -61,7 +61,7 @@ func (s *stepSsh) writeSSHKey(keyfile string) (err error) {
 	keyfileField := field.New("keyfile", keyfile)
 	// 必须以换行符结束
 	if !strings.HasSuffix(key, "\n") {
-		key = fmt.Sprintf(`%s\n`, key)
+		key = fmt.Sprintf("%s\n", key)
 	}
 
 	if err = os.WriteFile(keyfile, []byte(key), defaultFilePerm); nil != err {
