@@ -66,12 +66,12 @@ func (p *plugin) Config() drone.Config {
 
 func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
-		/*drone.NewStep(newGithubStep(p)).Name("Github加速").Build(),
+		drone.NewStep(newGithubStep(p)).Name("Github加速").Build(),
 		drone.NewStep(newClearStep(p)).Name("清理Git目录").Build(),
 		drone.NewStep(newNetrcStep(p)).Name("写入授权配置").Build(),
 		drone.NewStep(newSshStep(p)).Name("写入SSH配置").Build(),
 		drone.NewStep(newPullStep(p)).Name("拉代码").Build(),
-		drone.NewStep(newPushStep(p)).Name("推代码").Build(),*/
+		drone.NewStep(newPushStep(p)).Name("推代码").Build(),
 	}
 }
 
