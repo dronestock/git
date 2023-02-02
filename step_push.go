@@ -26,11 +26,17 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 		err = s.init()
 	} else {
 		s.Debug("是完整的Git仓库，无需初始化和配置", field.New("dir", s.Dir))
-		s.Debug("提交文件开始", field.New("dir", s.Dir))
-		err = s.commit()
-		s.Debug("提交文件完成", field.New("dir", s.Dir))
+		s.Debug("签出目标分支开始", field.New("dir", s.Dir))
+		// 签出目标分支
+		err = s.git("checkout", "-B", s.Branch)
+		s.Debug("签出目标分支完成", field.New("dir", s.Dir))
 	}
 	if nil != err {
+		return
+	}
+
+	// 提交代码
+	if err = s.commit();nil!=err{
 		return
 	}
 
@@ -45,13 +51,10 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 		if err = s.git("tag", "--annotate", s.Tag, "--message", s.Message); nil != err {
 			return
 		}
-		if err = s.git("push", "--set-upstream", name, s.Tag, s.gitForce()); nil != err {
-			return
-		}
 	}
 
 	// 推送
-	err = s.git("push", "--set-upstream", name, s.Branch, s.gitForce())
+	err = s.git("push", "--set-upstream", name, s.Branch, "--tags", s.gitForce())
 
 	return
 }
