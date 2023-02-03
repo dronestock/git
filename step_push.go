@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"path/filepath"
 
 	"github.com/goexl/gfx"
 	"github.com/goexl/gox/field"
@@ -23,7 +24,7 @@ func (s *stepPush) Runnable() bool {
 }
 
 func (s *stepPush) Run(_ context.Context) (err error) {
-	if _,exists := gfx.Exists(s.Dir); !exists {
+	if _,exists := gfx.Exists(filepath.Join(s.Dir, gitHome)); !exists {
 		err = s.init()
 	} else {
 		s.Debug("是完整的Git仓库，无需初始化和配置", field.New("dir", s.Dir))
