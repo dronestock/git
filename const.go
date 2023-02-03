@@ -11,7 +11,7 @@ const (
 
 	fastGithubExe         = "/opt/fastgithub/fastgithub"
 	fastGithubSuccessMark = "FastGithub启动完成"
-	gitExe                = "git11"
+	gitExe                = "git"
 	gitHome               = ".git"
 
 	githubHttps = "https://github.com"
