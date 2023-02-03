@@ -47,7 +47,7 @@ type plugin struct {
 	Commit string `default:"${COMMIT=${DRONE_COMMIT}}" validate:"required_without=Branch"`
 
 	// 是否清理
-	Clear *bool `default:"${CLEAR=false}"`
+	Clear *bool `default:"${CLEAR=true}"`
 	// 是否启用Github加速
 	Github github `default:"${GITHUB}"`
 
@@ -127,8 +127,4 @@ func (p *plugin) checkout() (checkout string) {
 	}
 
 	return
-}
-
-func (p *plugin) clearable() bool {
-	return nil != p.Clear && *p.Clear
 }

@@ -17,7 +17,7 @@ func newClearStep(plugin *plugin) *stepClear {
 }
 
 func (s *stepClear) Runnable() bool {
-	return s.clearable()
+	return nil != s.Clear && *s.Clear
 }
 
 func (s *stepClear) Run(_ context.Context) (err error) {
