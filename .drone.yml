@@ -13,6 +13,8 @@ steps:
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
+    commands:
+      - ls -al
     volumes:
       - name: go
         path: /var/lib/go
