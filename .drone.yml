@@ -13,6 +13,8 @@ steps:
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
+    settings:
+      next: 0.0.1
 
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
