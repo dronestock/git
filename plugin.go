@@ -37,7 +37,7 @@ type plugin struct {
 	// 提交消息
 	Message string `default:"${MESSAGE=${DRONE_COMMIT_MESSAGE=drone}}"`
 	// 是否强制提交
-	Force bool `default:"${FORCE=true}"`
+	Force *bool `default:"${FORCE}"`
 
 	// 子模块
 	Submodules bool `default:"${SUBMODULES=true}"`
@@ -111,8 +111,8 @@ func (p *plugin) boostGithub() bool {
 		strings.HasPrefix(p.remote(), githubHttps) || strings.HasPrefix(p.remote(), githubHttp)
 }
 
-func (p *plugin) gitForce() (force string) {
-	if p.Force {
+func (p *plugin) forceEnabled() (force string) {
+	if nil!=p.Force && *p.Force {
 		force = "--force"
 	}
 

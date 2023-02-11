@@ -56,7 +56,7 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 	}
 
 	// 推送
-	err = s.git("push", "--set-upstream", name, s.Branch, "--tags", s.gitForce())
+	err = s.git("push", "--set-upstream", name, s.Branch, "--tags", s.forceEnabled())
 
 	return
 }

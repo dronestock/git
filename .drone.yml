@@ -11,18 +11,6 @@ steps:
   - name: 代码
     image: ccr.ccs.tencentyun.com/dronestock/git
 
-  - name: 改变
-    image: ccr.ccs.tencentyun.com/dronestock/changelog
-
-  - name: 提交
-    image: ccr.ccs.tencentyun.com/dronestock/git
-    settings:
-      remote: git@github.com:dronestock/git.git
-      clear: false
-      message: "docs(改变): 生成最新的改变日志 [CI SKIP]"
-      key:
-        from_secret: ssh_key_github
-
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
     volumes:
