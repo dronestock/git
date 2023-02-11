@@ -13,15 +13,13 @@ steps:
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
-    settings:
-      next: 0.0.1
 
   - name: 提交
     image: ccr.ccs.tencentyun.com/dronestock/git
     settings:
       remote: git@github.com:dronestock/git.git
       clear: false
-      message: "docs(改变): 生成最新的改变日志 [CI SKIP]"
+      message: "docs(改变): 生成最新的改变日志[CI SKIP]"
       key:
         from_secret: ssh_key_github
 
