@@ -1,6 +1,11 @@
 package main
 
 func (p *plugin) init() (err error) {
+	// 初始化目录
+	if err = p.git("init"); nil != err {
+		return
+	}
+
 	// 设置默认分支
 	if err = p.git("config", "init.defaultBranch", "master"); nil != err {
 		return
@@ -17,12 +22,7 @@ func (p *plugin) init() (err error) {
 	}
 
 	// 设置不强击检查换行符
-	if err = p.git("config", "core.autocrlf", "false"); nil != err {
-		return
-	}
-
-	// 初始化目录
-	err = p.git("init")
+	err = p.git("config", "core.autocrlf", "false")
 
 	return
 }
