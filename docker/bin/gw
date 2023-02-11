@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# 增加额外本地域名配置文件
+for file in /etc/hosts.d/*; do
+    if test -f "${file}"; then
+        cat "${file}" >> /etc/hosts
+    fi
+done
+
+# 执行程序
+/bin/git
