@@ -56,6 +56,9 @@ RUN set -ex \
     && rm -rf /var/cache/apk/*
 
 
+# 修改默认参数
+ENV PLUGIN_TIMES 10
+
 
 # 执行命令
 ENTRYPOINT /bin/gw
