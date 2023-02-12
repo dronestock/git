@@ -3,7 +3,9 @@
 *.exe~
 *.dll
 *.so
+*.upx
 *.dylib
+git
 dist/
 
 # 测试文件
