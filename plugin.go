@@ -111,12 +111,8 @@ func (p *plugin) boostGithub() bool {
 		strings.HasPrefix(p.remote(), githubHttps) || strings.HasPrefix(p.remote(), githubHttp)
 }
 
-func (p *plugin) forceEnabled() (force string) {
-	if nil!=p.Force && *p.Force {
-		force = "--force"
-	}
-
-	return
+func (p *plugin) forceEnabled() bool {
+	return nil != p.Force && *p.Force
 }
 
 func (p *plugin) checkout() (checkout string) {

@@ -24,7 +24,7 @@ func (s *stepPush) Runnable() bool {
 }
 
 func (s *stepPush) Run(_ context.Context) (err error) {
-	if _,exists := gfx.Exists(filepath.Join(s.Dir, gitHome)); !exists {
+	if _, exists := gfx.Exists(filepath.Join(s.Dir, gitHome)); !exists {
 		err = s.init()
 	} else {
 		s.Debug("是完整的Git仓库，无需初始化和配置", field.New("dir", s.Dir))
@@ -56,7 +56,17 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 	}
 
 	// 推送
-	err = s.git("push", "--set-upstream", name, s.Branch, "--tags", s.forceEnabled())
+	args := []any{
+		"push",
+		"--set-upstream",
+		name,
+		s.Branch,
+		"--tags",
+	}
+	if s.forceEnabled() {
+		args = append(args, "--force")
+	}
+	err = s.git(args...)
 
 	return
 }
