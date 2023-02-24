@@ -39,7 +39,7 @@ func (s *stepNetrc) Run(_ context.Context) (err error) {
 		field.New("password", s.Password),
 	}
 	if err = os.WriteFile(netrcFilepath, []byte(netrcConfig), defaultFilePerm); nil != err {
-		s.Error("写入授权文件出错", netrcFields.Connect(field.Error(err))...)
+		s.Error("写入授权文件出错", netrcFields.Add(field.Error(err))...)
 	} else {
 		s.Info("写入授权文件成功", netrcFields...)
 	}
