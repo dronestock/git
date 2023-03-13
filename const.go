@@ -16,6 +16,7 @@ const (
 	speedTime  = "GIT_HTTP_LOW_SPEED_TIME=60"
 
 	netrcUsername = "DRONE_NETRC_USERNAME"
+	// nolint: gosec
 	netrcPassword = "DRONE_NETRC_PASSWORD"
 
 	fastGithubExe         = "/opt/fastgithub/fastgithub"
