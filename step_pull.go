@@ -24,7 +24,7 @@ func (s *stepPull) Run(_ context.Context) (err error) {
 	// 克隆项目
 	cloneArgs := args.New().Build().Subcommand("clone", s.remote())
 	if s.Submodules {
-		cloneArgs.Flag("remote-submodules").Flag("--recurse-submodules")
+		cloneArgs.Flag("remote-submodules").Flag("recurse-submodules")
 	}
 	if 0 != s.Depth {
 		cloneArgs.Arg("depth", s.Depth)
