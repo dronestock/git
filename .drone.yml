@@ -51,7 +51,7 @@ steps:
       PASSWORD_CCR:
         from_secret: password_tencentyun_ccr
     settings:
-      repository: dronestock/kubernetes
+      repository: dronestock/git
       registries:
         - username: dronestock
           password: $${PASSWORD_DOCKER}
