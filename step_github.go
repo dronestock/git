@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"time"
 )
 
@@ -30,10 +29,9 @@ func (s *stepGithub) Run(_ context.Context) (err error) {
 
 	// 设置代理
 	proxy := "127.0.0.1:38457"
-	s.envs = append(s.envs, fmt.Sprintf("%s=%s", `HTTP_PROXY`, proxy))
-	s.envs = append(s.envs, fmt.Sprintf("%s=%s", `HTTPS_PROXY`, proxy))
-	s.envs = append(s.envs, fmt.Sprintf("%s=%s", `FTP_PROXY`, proxy))
-	s.envs = append(s.envs, fmt.Sprintf("%s=%s", `NO_PROXY`, `localhost, 127.0.0.1, ::1`))
+	s.environments = append(s.environments, newEnvironments(httpProxy, proxy))
+	s.environments = append(s.environments, newEnvironments(httpsProxy, proxy))
+	s.environments = append(s.environments, newEnvironments(ftpProxy, proxy))
 
 	// 等待FastGithub真正完成启动，防止出现connection refuse的错误
 	time.Sleep(time.Second)

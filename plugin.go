@@ -15,7 +15,7 @@ type plugin struct {
 	// 远程仓库地址
 	Remote string `default:"${REMOTE=${DRONE_GIT_HTTP_URL}}" validate:"required"`
 	// 模式
-	Mode mode `default:"${MODE=push}"`
+	Mode string `default:"${MODE=push}"`
 
 	// 用户名
 	Username string `default:"${PLUGIN_USERNAME=${DRONE_NETRC_USERNAME=${USERNAME}}}"`
@@ -48,15 +48,15 @@ type plugin struct {
 
 	// 是否清理
 	Clear *bool `default:"${CLEAR}"`
-	// 是否启用Github加速
+	// Github相关配置
 	Github github `default:"${GITHUB}"`
 
-	envs []string
+	environments []*environment
 }
 
 func newPlugin() drone.Plugin {
 	return &plugin{
-		envs: make([]string, 0),
+		environments: make([]*environment, 0),
 	}
 }
 
@@ -93,8 +93,8 @@ func (p *plugin) Fields() gox.Fields[any] {
 }
 
 func (p *plugin) remote() (remote string) {
-	if modePull == p.Mode && "" != p.Key {
-		remote = os.Getenv(droneSshUrlEnv)
+	if pull == p.Mode && "" != p.Key {
+		remote = os.Getenv(droneSshUrl)
 	} else {
 		remote = p.Remote
 	}
@@ -103,9 +103,7 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
-	return (docker == os.Getenv(droneStageType) && droneFirstStepNum == os.Getenv(droneStepNumEnv)) ||
-		kubernetes != os.Getenv(droneStageType) ||
-		modePull == p.Mode
+	return "" != os.Getenv(netrcUsername) && "" != os.Getenv(netrcPassword)
 }
 
 func (p *plugin) boostGithub() bool {

@@ -1,13 +1,22 @@
 package main
 
 const (
-	homeEnv        = "HOME"
-	sshHome        = ".ssh"
-	sshConfigDir   = "config"
-	sshKeyFilename = "id_rsa"
-	netrcFilename  = ".netrc"
-
+	pull            = "pull"
+	homeEnv         = "HOME"
+	sshHome         = ".ssh"
+	sshConfigDir    = "config"
+	sshKeyFilename  = "id_rsa"
+	netrcFilename   = ".netrc"
 	defaultFilePerm = 0600
+
+	httpProxy  = "HTTP_PROXY"
+	httpsProxy = "HTTPS_PROXY"
+	ftpProxy   = "FTP_PROXY"
+	speedLimit = "GIT_HTTP_LOW_SPEED_LIMIT=1024"
+	speedTime  = "GIT_HTTP_LOW_SPEED_TIME=60"
+
+	netrcUsername = "DRONE_NETRC_USERNAME"
+	netrcPassword = "DRONE_NETRC_PASSWORD"
 
 	fastGithubExe         = "/opt/fastgithub/fastgithub"
 	fastGithubSuccessMark = "FastGithub启动完成"
@@ -17,10 +26,5 @@ const (
 	githubHttps = "https://github.com"
 	githubHttp  = "http://github.com"
 
-	docker            = "docker"
-	kubernetes        = "kubernetes"
-	droneStepNumEnv   = "DRONE_STEP_NUMBER"
-	droneStageType    = "DRONE_STAGE_TYPE"
-	droneFirstStepNum = "1"
-	droneSshUrlEnv    = "DRONE_GIT_SSH_URL"
+	droneSshUrl = "DRONE_GIT_SSH_URL"
 )
