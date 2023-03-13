@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/goexl/gfx"
+	"github.com/goexl/gox/args"
 	"github.com/goexl/gox/field"
 	"github.com/goexl/gox/rand"
 )
@@ -30,7 +31,7 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 		s.Debug("是完整的Git仓库，无需初始化和配置", field.New("dir", s.Dir))
 		s.Debug("签出目标分支开始", field.New("dir", s.Dir))
 		// 签出目标分支
-		err = s.git("checkout", "-B", s.Branch)
+		err = s.git(args.New().Build().Subcommand("checkout").Arg("B", s.Branch).Build())
 		s.Debug("签出目标分支完成", field.New("dir", s.Dir))
 	}
 	if nil != err {
@@ -42,31 +43,27 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 		return
 	}
 
-	name := rand.New().String().Generate()
+	name := rand.New().String().Build().Generate()
 	// 添加远程仓库地址
-	if err = s.git("remote", "add", name, s.remote()); nil != err {
+	addArgs := args.New().Build().Subcommand("remote", "add").Add(name, s.remote())
+	if err = s.git(addArgs.Build()); nil != err {
 		return
 	}
 
 	// 如果有标签，推送标签
 	if "" != s.Tag {
-		if err = s.git("tag", "--annotate", s.Tag, "--message", s.Message); nil != err {
+		tagArgs := args.New().Build().Subcommand("tag").Arg("annotate", s.Tag).Arg("message", s.Message)
+		if err = s.git(tagArgs.Build()); nil != err {
 			return
 		}
 	}
 
 	// 推送
-	args := []any{
-		"push",
-		"--set-upstream",
-		name,
-		s.Branch,
-		"--tags",
-	}
+	pushArgs := args.New().Build().Subcommand("push").Arg("set-upstream", name).Add(s.Branch).Flag("tags")
 	if s.forceEnabled() {
-		args = append(args, "--force")
+		pushArgs.Flag("force").Build()
 	}
-	err = s.git(args...)
+	err = s.git(pushArgs.Build())
 
 	return
 }

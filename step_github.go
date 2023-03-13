@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"time"
-
-	"github.com/dronestock/drone"
 )
 
 type stepGithub struct {
@@ -25,8 +23,8 @@ func (s *stepGithub) Runnable() bool {
 func (s *stepGithub) Run(_ context.Context) (err error) {
 	command := s.Command(fastGithubExe)
 	command.Async()
-	command.Checker(drone.Contains(fastGithubSuccessMark))
-	if err = command.Exec(); nil != err {
+	command.Checker().Contains(fastGithubSuccessMark)
+	if _, err = command.Build().Exec(); nil != err {
 		return
 	}
 

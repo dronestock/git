@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+
+	"github.com/goexl/gox/args"
 )
 
 type stepPull struct {
@@ -20,30 +22,31 @@ func (s *stepPull) Runnable() bool {
 
 func (s *stepPull) Run(_ context.Context) (err error) {
 	// 克隆项目
-	args := []any{"clone", s.remote()}
+	cloneArgs := args.New().Build().Subcommand("clone", s.remote())
 	if s.Submodules {
-		args = append(args, "--remote-submodules", "--recurse-submodules")
+		cloneArgs.Flag("remote-submodules").Flag("--recurse-submodules")
 	}
 	if 0 != s.Depth {
-		args = append(args, "--depth", s.Depth)
+		cloneArgs.Arg("depth", s.Depth)
 	}
 	// 防止SSL证书错误
-	args = append(args, "--config", "http.sslVerify=false")
-	args = append(args, s.Dir)
-	if err = s.git(args...); nil != err {
+	cloneArgs.Arg("config", "http.sslVerify=false")
+	cloneArgs.Add(s.Dir)
+	if err = s.git(cloneArgs.Build()); nil != err {
 		return
 	}
 
 	// 检出提交的代码
-	if err = s.git("checkout", s.checkout()); nil != err {
+	checkoutArgs := args.New().Build().Subcommand("checkout").Add(s.checkout())
+	if err = s.git(checkoutArgs.Build()); nil != err {
 		return
 	}
 
 	// 处理子模块因为各种原因无法下载的情况
-	if !s.Submodules {
-		return
+	if s.Submodules {
+		submodulesArgs := args.New().Build().Subcommand("submodule", "update").Flag("init").Flag("recursive").Flag("remote")
+		err = s.git(submodulesArgs.Build())
 	}
-	err = s.git("submodule", "update", "--init", "--recursive", "--remote")
 
 	return
 }

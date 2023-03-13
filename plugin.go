@@ -103,7 +103,9 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
-	return droneFirstStepNum == os.Getenv(droneStepNumEnv) || modePull == p.Mode
+	return (docker == os.Getenv(droneStageType) && droneFirstStepNum == os.Getenv(droneStepNumEnv)) ||
+		kubernetes == os.Getenv(droneStageType) ||
+		modePull == p.Mode
 }
 
 func (p *plugin) boostGithub() bool {
