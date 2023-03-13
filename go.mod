@@ -19,7 +19,7 @@ require (
 	github.com/goexl/baozheng v0.0.1 // indirect
 	github.com/goexl/env v0.0.2 // indirect
 	github.com/goexl/exc v0.0.5 // indirect
-	github.com/goexl/gex v0.2.9 // indirect
+	github.com/goexl/gex v0.3.0 // indirect
 	github.com/goexl/guc v0.0.7 // indirect
 	github.com/goexl/mengpo v0.2.4 // indirect
 	github.com/goexl/simaqian v0.2.3 // indirect

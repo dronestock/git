@@ -6,11 +6,13 @@ import (
 
 func (p *plugin) git(args *args.Args) (err error) {
 	command := p.Command(gitExe).Args(args).Dir(p.Dir)
-	command.StringEnvironment(speedLimit)
-	command.StringEnvironment(speedTime)
+	environment := command.Environment()
+	environment.String(speedLimit)
+	environment.String(speedTime)
 	for _, env := range p.environments {
-		command.Environment(env.key, env.value)
+		environment.Kv(env.key, env.value)
 	}
+	command = environment.Build()
 	_, err = command.Build().Exec()
 
 	return
