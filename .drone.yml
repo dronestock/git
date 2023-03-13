@@ -9,9 +9,9 @@ clone:
 
 environment:
   NAME: docker/bin/git
-  OUTPUT_LINUX: docker/bin/git.amd64.lin
-  OUTPUT_WINDOWS: docker/bin/git.amd64.exe
-  OUTPUT_MAC: docker/bin/git.amd64.mac
+  OUTPUT_LINUX: git.amd64.lin
+  OUTPUT_WINDOWS: git.amd64.exe
+  OUTPUT_MAC: git.amd64.mac
   CHANGELOG_TAG_OUTPUT: CHANGELOG.tag.md
 
 
