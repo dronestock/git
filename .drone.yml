@@ -8,7 +8,7 @@ clone:
 
 
 environment:
-  NAME: docker/bin/git
+  NAME: git
   OUTPUT_LINUX: git.amd64.lin
   OUTPUT_WINDOWS: git.amd64.exe
   OUTPUT_MAC: git.amd64.mac
@@ -26,7 +26,7 @@ steps:
         path: /var/lib/go
     settings:
       outputs:
-        - name: $${NAME}
+        - name: docker/bin/$${NAME}
           os: linux
           arch: amd64
         - name: $${OUTPUT_LINUX}
