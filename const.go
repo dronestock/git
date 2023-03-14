@@ -15,10 +15,6 @@ const (
 	speedLimit = "GIT_HTTP_LOW_SPEED_LIMIT=1024"
 	speedTime  = "GIT_HTTP_LOW_SPEED_TIME=60"
 
-	netrcUsername = "DRONE_NETRC_USERNAME"
-	// nolint: gosec
-	netrcPassword = "DRONE_NETRC_PASSWORD"
-
 	fastGithubExe         = "/opt/fastgithub/fastgithub"
 	fastGithubSuccessMark = "FastGithub启动完成"
 	gitExe                = "git"
@@ -27,5 +23,10 @@ const (
 	githubHttps = "https://github.com"
 	githubHttp  = "http://github.com"
 
-	droneSshUrl = "DRONE_GIT_SSH_URL"
+	docker            = "docker"
+	kubernetes        = "kubernetes"
+	droneStepNumEnv   = "DRONE_STEP_NUMBER"
+	droneStageType    = "DRONE_STAGE_TYPE"
+	droneFirstStepNum = "1"
+	droneSshUrl       = "DRONE_GIT_SSH_URL"
 )

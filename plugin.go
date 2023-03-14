@@ -52,6 +52,7 @@ type plugin struct {
 	Github github `default:"${GITHUB}"`
 
 	environments []*environment
+	pull         bool
 }
 
 func newPlugin() drone.Plugin {
@@ -103,12 +104,13 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
-	return "" != os.Getenv(netrcUsername) && "" != os.Getenv(netrcPassword)
+	return (docker == os.Getenv(droneStageType) && droneFirstStepNum == os.Getenv(droneStepNumEnv)) ||
+		kubernetes == os.Getenv(droneStageType) ||
+		pull == p.Mode
 }
 
 func (p *plugin) boostGithub() bool {
-	return nil != p.Github.Boost && *p.Github.Boost &&
-		strings.HasPrefix(p.remote(), githubHttps) || strings.HasPrefix(p.remote(), githubHttp)
+	return p.Github.Boost && strings.HasPrefix(p.remote(), githubHttps) || strings.HasPrefix(p.remote(), githubHttp)
 }
 
 func (p *plugin) forceEnabled() bool {
