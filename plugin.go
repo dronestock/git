@@ -1,19 +1,20 @@
 package main
 
 import (
-	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/dronestock/drone"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
-	"github.com/joho/godotenv"
 )
 
 type plugin struct {
 	drone.Base
 
+	// 控制程序
+	Binary string `default:"${BINARY=git}" json:"binary"`
 	// 远程仓库地址
 	Remote string `default:"${REMOTE=${DRONE_GIT_HTTP_URL}}" validate:"required"`
 	// 模式
@@ -104,18 +105,12 @@ func (p *plugin) remote() (remote string) {
 	return
 }
 
-func (p *plugin) pulling() bool {
-	if _, se := os.Stat(droneEnv); nil == se {
-		_ = godotenv.Overload(droneEnv)
+func (p *plugin) pull() (pull bool) {
+	if _, se := os.Stat(filepath.Join(p.Dir, gitHome)); nil != se && os.IsNotExist(se) {
+		pull = true
 	}
-	for _, env := range os.Environ() {
-		fmt.Println(env)
-	}
-	fmt.Println("=============")
 
-	return (docker == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(droneStepNumber)) ||
-		(kubernetes == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(kubernetesDroneStepNumber)) ||
-		pull == p.Mode
+	return
 }
 
 func (p *plugin) boostGithub() bool {

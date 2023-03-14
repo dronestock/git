@@ -5,7 +5,7 @@ import (
 )
 
 func (p *plugin) git(args *args.Args) (err error) {
-	command := p.Command(gitExe).Args(args).Dir(p.Dir)
+	command := p.Command(p.Binary).Args(args).Dir(p.Dir)
 	environment := command.Environment()
 	environment.String(speedLimit)
 	environment.String(speedTime)

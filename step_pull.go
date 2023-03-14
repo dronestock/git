@@ -17,7 +17,7 @@ func newPullStep(plugin *plugin) *stepPull {
 }
 
 func (s *stepPull) Runnable() bool {
-	return s.pulling()
+	return s.pull()
 }
 
 func (s *stepPull) Run(_ context.Context) (err error) {

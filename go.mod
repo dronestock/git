@@ -6,7 +6,6 @@ require (
 	github.com/dronestock/drone v0.9.2
 	github.com/goexl/gfx v0.1.7
 	github.com/goexl/gox v0.2.8
-	github.com/joho/godotenv v1.5.1
 )
 
 require (
