@@ -104,8 +104,8 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
-	return (docker == os.Getenv(droneStageType) && droneFirstStepNum == os.Getenv(droneStepNumEnv)) ||
-		kubernetes == os.Getenv(droneStageType) ||
+	return (docker == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(droneStepNumber)) ||
+		(kubernetes == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(kubernetesDroneStepNumber)) ||
 		pull == p.Mode
 }
 

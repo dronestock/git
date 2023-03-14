@@ -23,10 +23,11 @@ const (
 	githubHttps = "https://github.com"
 	githubHttp  = "http://github.com"
 
-	docker            = "docker"
-	kubernetes        = "kubernetes"
-	droneStepNumEnv   = "DRONE_STEP_NUMBER"
-	droneStageType    = "DRONE_STAGE_TYPE"
-	droneFirstStepNum = "1"
-	droneSshUrl       = "DRONE_GIT_SSH_URL"
+	docker                    = "docker"
+	kubernetes                = "kubernetes"
+	droneStepNumber           = "DRONE_STEP_NUMBER"
+	kubernetesDroneStepNumber = "io.drone.build.number"
+	droneStageType            = "DRONE_STAGE_TYPE"
+	droneFirstStepNumber      = "1"
+	droneSshUrl               = "DRONE_GIT_SSH_URL"
 )
