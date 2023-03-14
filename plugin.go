@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"strings"
 
@@ -112,6 +113,9 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
+	for _, env := range os.Environ() {
+		fmt.Println(env)
+	}
 	return (docker == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(droneStepNumber)) ||
 		(kubernetes == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(kubernetesDroneStepNumber)) ||
 		pull == p.Mode
