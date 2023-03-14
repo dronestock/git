@@ -66,14 +66,6 @@ func (p *plugin) Config() drone.Config {
 	return p
 }
 
-func (p *plugin) Setup() (err error) {
-	if _, se := os.Stat(droneEnv); nil == se {
-		_ = godotenv.Overload(droneEnv)
-	}
-
-	return
-}
-
 func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
 		drone.NewStep(newGithubStep(p)).Name("加速").Build(),
@@ -113,9 +105,13 @@ func (p *plugin) remote() (remote string) {
 }
 
 func (p *plugin) pulling() bool {
+	if _, se := os.Stat(droneEnv); nil == se {
+		_ = godotenv.Overload(droneEnv)
+	}
 	for _, env := range os.Environ() {
 		fmt.Println(env)
 	}
+	fmt.Println("=============")
 
 	return (docker == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(droneStepNumber)) ||
 		(kubernetes == os.Getenv(droneStageType) && droneFirstStepNumber == os.Getenv(kubernetesDroneStepNumber)) ||
