@@ -52,7 +52,6 @@ type plugin struct {
 	Github github `default:"${GITHUB}"`
 
 	environments []*environment
-	pull         bool
 }
 
 func newPlugin() drone.Plugin {
