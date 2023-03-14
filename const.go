@@ -25,6 +25,7 @@ const (
 
 	docker                    = "docker"
 	kubernetes                = "kubernetes"
+	droneEnv                  = "/run/drone/env"
 	droneStepNumber           = "DRONE_STEP_NUMBER"
 	kubernetesDroneStepNumber = "io.drone.build.number"
 	droneStageType            = "DRONE_STAGE_TYPE"

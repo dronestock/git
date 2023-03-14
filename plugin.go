@@ -7,6 +7,7 @@ import (
 	"github.com/dronestock/drone"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
+	"github.com/joho/godotenv"
 )
 
 type plugin struct {
@@ -62,6 +63,14 @@ func newPlugin() drone.Plugin {
 
 func (p *plugin) Config() drone.Config {
 	return p
+}
+
+func (p *plugin) Setup() (err error) {
+	if _, se := os.Stat(droneEnv); nil == se {
+		_ = godotenv.Overload(droneEnv)
+	}
+
+	return
 }
 
 func (p *plugin) Steps() drone.Steps {
