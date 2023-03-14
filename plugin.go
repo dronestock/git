@@ -55,6 +55,7 @@ type plugin struct {
 	Github github `default:"${GITHUB}"`
 
 	environments []*environment
+	pull bool
 }
 
 func newPlugin() drone.Plugin {
@@ -65,6 +66,14 @@ func newPlugin() drone.Plugin {
 
 func (p *plugin) Config() drone.Config {
 	return p
+}
+
+func (p *plugin) Setup() (err error) {
+	if _, se := os.Stat(filepath.Join(p.Dir, gitHome)); nil != se && os.IsNotExist(se) {
+		p.pull = true
+	}
+
+	return
 }
 
 func (p *plugin) Steps() drone.Steps {
@@ -100,14 +109,6 @@ func (p *plugin) remote() (remote string) {
 		remote = os.Getenv(droneSshUrl)
 	} else {
 		remote = p.Remote
-	}
-
-	return
-}
-
-func (p *plugin) pull() (pull bool) {
-	if _, se := os.Stat(filepath.Join(p.Dir, gitHome)); nil != se && os.IsNotExist(se) {
-		pull = true
 	}
 
 	return
