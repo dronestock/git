@@ -71,8 +71,8 @@ func (p *plugin) Steps() drone.Steps {
 	return drone.Steps{
 		drone.NewStep(newGithubStep(p)).Name("加速").Build(),
 		drone.NewStep(newClearStep(p)).Name("清理").Build(),
-		drone.NewStep(newNetrcStep(p)).Name("写入授权配置").Build(),
-		drone.NewStep(newSshStep(p)).Name("写入SSH配置").Build(),
+		drone.NewStep(newNetrcStep(p)).Name("授权").Build(),
+		drone.NewStep(newSshStep(p)).Name("SSH").Build(),
 		drone.NewStep(newPullStep(p)).Name("拉取").Build(),
 		drone.NewStep(newPushStep(p)).Name("推送").Build(),
 	}
