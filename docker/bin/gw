@@ -8,7 +8,10 @@ for file in /etc/hosts.d/*; do
 done
 
 # 处理Kubernetes环境变量问题（某些Drone变量没有被正确注入到环境变量中）
-export "$(xargs < /run/drone/env)"
+kubernetesEnv=/run/drone/env
+if [ -e ${kubernetesEnv} ]; then
+    export "$(xargs < ${kubernetesEnv})"
+fi
 
 # 执行程序
 /bin/git
