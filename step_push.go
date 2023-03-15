@@ -21,7 +21,7 @@ func newPushStep(plugin *plugin) *stepPush {
 }
 
 func (s *stepPush) Runnable() bool {
-	return !s.pull
+	return s.push
 }
 
 func (s *stepPush) Run(_ context.Context) (err error) {

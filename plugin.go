@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/dronestock/drone"
@@ -55,7 +54,7 @@ type plugin struct {
 	Github github `default:"${GITHUB}"`
 
 	environments []*environment
-	pull bool
+	push         bool
 }
 
 func newPlugin() drone.Plugin {
@@ -69,8 +68,8 @@ func (p *plugin) Config() drone.Config {
 }
 
 func (p *plugin) Setup() (err error) {
-	if _, se := os.Stat(filepath.Join(p.Dir, gitHome)); nil != se && os.IsNotExist(se) {
-		p.pull = true
+	if entries, re := os.ReadDir(p.Dir); nil == re {
+		p.push = 0 != len(entries)
 	}
 
 	return
