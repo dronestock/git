@@ -59,7 +59,7 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 	}
 
 	// 推送
-	pa := args.New().Build().Subcommand("push").Flag("set-upstream", name).Add(s.Branch).Flag("tags")
+	pa := args.New().Build().Subcommand("push").Args("set-upstream", name, s.Branch).Flag("tags")
 	if s.forceEnabled() {
 		pa.Flag("force")
 	}
