@@ -39,7 +39,7 @@ environment:
 
 steps:
   - name: 取码
-    image: ccr.ccs.tencentyun.com/dronestock/git
+    image: ccr.ccs.tencentyun.com/dronestock/git:0.0.474
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
@@ -73,7 +73,7 @@ steps:
       PASSWORD_CCR:
         from_secret: password_tencentyun_ccr
     settings:
-      repository: dronestock/git
+      repository: dronestock/$${NAME}
       registries:
         - username: dronestock
           password: $${PASSWORD_DOCKER}
