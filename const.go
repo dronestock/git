@@ -9,8 +9,6 @@ const (
 	netrcFilename   = ".netrc"
 	defaultFilePerm = 0600
 
-	space = " "
-
 	httpProxy  = "HTTP_PROXY"
 	httpsProxy = "HTTPS_PROXY"
 	ftpProxy   = "FTP_PROXY"
