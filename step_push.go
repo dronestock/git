@@ -52,16 +52,16 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 
 	// 如果有标签，推送标签
 	if "" != s.Tag {
-		ta := args.New().Build().Subcommand("tag").Flag("annotate").Add(s.Tag).Arg("message", s.Message)
+		ta := args.New().Build().Subcommand("tag").Args("annotate", s.Tag).Args("message", s.Message)
 		if err = s.git(ta.Build()); nil != err {
 			return
 		}
 	}
 
 	// 推送
-	pa := args.New().Build().Subcommand("push").Flag("set-upstream").Add(name, s.Branch).Flag("tags")
+	pa := args.New().Build().Subcommand("push").Flag("set-upstream", name).Add(s.Branch).Flag("tags")
 	if s.forceEnabled() {
-		pa.Flag("force").Build()
+		pa.Flag("force")
 	}
 	err = s.git(pa.Build())
 
