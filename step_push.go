@@ -45,25 +45,25 @@ func (s *stepPush) Run(_ context.Context) (err error) {
 
 	name := rand.New().String().Build().Generate()
 	// 添加远程仓库地址
-	addArgs := args.New().Build().Subcommand("remote", "add").Add(name, s.remote())
-	if err = s.git(addArgs.Build()); nil != err {
+	aa := args.New().Build().Subcommand("remote", "add").Add(name, s.remote())
+	if err = s.git(aa.Build()); nil != err {
 		return
 	}
 
 	// 如果有标签，推送标签
 	if "" != s.Tag {
-		tagArgs := args.New().Build().Subcommand("tag").Arg("annotate", s.Tag).Arg("message", s.Message)
-		if err = s.git(tagArgs.Build()); nil != err {
+		ta := args.New().Equal(space).Build().Subcommand("tag").Arg("annotate", s.Tag).Arg("message", s.Message)
+		if err = s.git(ta.Build()); nil != err {
 			return
 		}
 	}
 
 	// 推送
-	pushArgs := args.New().Build().Subcommand("push").Arg("set-upstream", name).Add(s.Branch).Flag("tags")
+	pa := args.New().Equal(space).Build().Subcommand("push").Arg("set-upstream", name).Add(s.Branch).Flag("tags")
 	if s.forceEnabled() {
-		pushArgs.Flag("force").Build()
+		pa.Flag("force").Build()
 	}
-	err = s.git(pushArgs.Build())
+	err = s.git(pa.Build())
 
 	return
 }

@@ -9,6 +9,8 @@ const (
 	netrcFilename   = ".netrc"
 	defaultFilePerm = 0600
 
+	space = " "
+
 	httpProxy  = "HTTP_PROXY"
 	httpsProxy = "HTTPS_PROXY"
 	ftpProxy   = "FTP_PROXY"
@@ -22,12 +24,5 @@ const (
 	githubHttps = "https://github.com"
 	githubHttp  = "http://github.com"
 
-	docker                    = "docker"
-	kubernetes                = "kubernetes"
-	droneEnv                  = "/run/drone/env"
-	droneStepNumber           = "DRONE_STEP_NUMBER"
-	kubernetesDroneStepNumber = "io.drone.build.number"
-	droneStageType            = "DRONE_STAGE_TYPE"
-	droneFirstStepNumber      = "1"
-	droneSshUrl               = "DRONE_GIT_SSH_URL"
+	droneSshUrl = "DRONE_GIT_SSH_URL"
 )
