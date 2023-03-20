@@ -22,17 +22,17 @@ func (s *stepPull) Runnable() bool {
 
 func (s *stepPull) Run(_ context.Context) (err error) {
 	// 克隆项目
-	cloneArgs := args.New().Build().Subcommand("clone", s.remote())
+	ca := args.New().Build().Subcommand("clone", s.remote())
 	if s.Submodules {
-		cloneArgs.Flag("remote-submodules").Flag("recurse-submodules")
+		ca.Flag("remote-submodules").Flag("recurse-submodules")
 	}
 	if 0 != s.Depth {
-		cloneArgs.Arg("depth", s.Depth)
+		ca.Arg("depth", s.Depth)
 	}
 	// 防止SSL证书错误
-	cloneArgs.Arg("config", "http.sslVerify=false")
-	cloneArgs.Add(s.Dir)
-	if err = s.git(cloneArgs.Build()); nil != err {
+	ca.Args("config", "http.sslVerify=false")
+	ca.Add(s.Dir)
+	if err = s.git(ca.Build()); nil != err {
 		return
 	}
 
