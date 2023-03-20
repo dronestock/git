@@ -39,7 +39,7 @@ environment:
 
 steps:
   - name: 取码
-    image: ccr.ccs.tencentyun.com/dronestock/git:0.0.474
+    image: ccr.ccs.tencentyun.com/dronestock/git
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
