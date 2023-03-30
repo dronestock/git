@@ -30,22 +30,22 @@ func (s *stepPull) Run(_ context.Context) (err error) {
 		ca.Arg("depth", s.Depth)
 	}
 	// 防止SSL证书错误
-	ca.Args("config", "http.sslVerify=false")
+	ca.Arg("config", "http.sslVerify=false")
 	ca.Add(s.Dir)
 	if err = s.git(ca.Build()); nil != err {
 		return
 	}
 
 	// 检出提交的代码
-	checkoutArgs := args.New().Build().Subcommand("checkout").Add(s.checkout())
-	if err = s.git(checkoutArgs.Build()); nil != err {
+	coa := args.New().Build().Subcommand("checkout").Add(s.checkout())
+	if err = s.git(coa.Build()); nil != err {
 		return
 	}
 
 	// 处理子模块因为各种原因无法下载的情况
 	if s.Submodules {
-		submodulesArgs := args.New().Build().Subcommand("submodule", "update").Flag("init").Flag("recursive").Flag("remote")
-		err = s.git(submodulesArgs.Build())
+		sa := args.New().Build().Subcommand("submodule", "update").Flag("init").Flag("recursive").Flag("remote")
+		err = s.git(sa.Build())
 	}
 
 	return
