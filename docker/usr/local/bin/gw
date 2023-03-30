@@ -8,4 +8,4 @@ for file in /etc/hosts.d/*; do
 done
 
 # 执行程序
-/bin/git
+/usr/local/bin/git

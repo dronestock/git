@@ -39,10 +39,12 @@ environment:
 
 steps:
   - name: 取码
-    image: ccr.ccs.tencentyun.com/dronestock/git
+    image: ccr.ccs.tencentyun.com/dronestock/git:0.0.479
+    pull: always
 
   - name: 编译
     image: ccr.ccs.tencentyun.com/pangum/drone
+    pull: always
     volumes:
       - name: go
         path: /var/lib/go
@@ -63,6 +65,7 @@ steps:
 
   - name: 推送
     image: ccr.ccs.tencentyun.com/dronestock/docker
+    pull: always
     privileged: true
     volumes:
       - name: docker
@@ -84,6 +87,7 @@ steps:
 
   - name: 改变
     image: ccr.ccs.tencentyun.com/dronestock/changelog
+    pull: always
     when:
       event:
         - tag
@@ -93,6 +97,7 @@ steps:
 
   - name: 发布
     image: ccr.ccs.tencentyun.com/dronestock/github
+    pull: always
     when:
       event:
         - tag

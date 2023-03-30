@@ -1,5 +1,14 @@
 FROM dockerproxy.com/slcnx/fastgithub AS fastgithub
 
+FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.17.2 AS builder
+
+# 复制加速程序
+COPY --from=fastgithub /fastgithub /docker/opt/fastgithub
+# 复制脚本程序
+COPY docker /docker
+# 复制执行程序
+COPY git /docker/usr/local/bin/
+
 
 
 
@@ -14,9 +23,8 @@ LABEL author="storezhang<华寅>" \
     description="Drone持续集成Git插件，增加标签功能以及Github加速功能。同时支持推拉模式"
 
 
-# 复制文件
-COPY --from=fastgithub /fastgithub /opt/fastgithub
-COPY docker /
+# 复制文件，复合成一个步骤
+COPY --from=builder /docker /
 
 
 RUN set -ex \
@@ -34,8 +42,7 @@ RUN set -ex \
     \
     \
     # 增加执行权限
-    && chmod +x /bin/git \
-    && chmod +x /bin/gw \
+    && chmod +x /usr/local/bin/* \
     \
     \
     \
@@ -47,4 +54,4 @@ ENV PLUGIN_TIMES 10
 
 
 # 执行命令
-ENTRYPOINT /bin/gw
+ENTRYPOINT /usr/local/bin/gw
