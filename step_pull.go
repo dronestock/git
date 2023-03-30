@@ -30,7 +30,7 @@ func (s *stepPull) Run(_ context.Context) (err error) {
 		ca.Arg("depth", s.Depth)
 	}
 	// 防止SSL证书错误
-	ca.Arg("config", "http.sslVerify=false")
+	ca.Flag("config").Add("http.sslVerify=false")
 	ca.Add(s.Dir)
 	if err = s.git(ca.Build()); nil != err {
 		return

@@ -13,7 +13,7 @@ type plugin struct {
 	drone.Base
 
 	// 控制程序
-	Binary string `default:"${BINARY=git}" json:"binary"`
+	Binary string `default:"${BINARY=/usr/bin/git}" json:"binary"`
 	// 远程仓库地址
 	Remote string `default:"${REMOTE=${DRONE_GIT_HTTP_URL}}" validate:"required"`
 	// 模式
