@@ -50,7 +50,7 @@ steps:
         path: /var/lib/go
     settings:
       outputs:
-        - name: docker/bin/$${NAME}
+        - name: $${NAME}
           os: linux
           arch: amd64
         - name: $${OUTPUT_LINUX}
