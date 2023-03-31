@@ -1,6 +1,7 @@
 package main
 
 const (
+	space           = " "
 	pull            = "pull"
 	homeEnv         = "HOME"
 	sshHome         = ".ssh"
