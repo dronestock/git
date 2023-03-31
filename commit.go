@@ -14,7 +14,7 @@ func (p *plugin) commit() (err error) {
 	}
 
 	// 提交
-	ca := args.New().Equal(space).Build().Subcommand("commit", ".").Arg("message", p.Message)
+	ca := args.New().Build().Subcommand("commit", ".").Flag("message").Add(p.Message)
 	if err = p.git(ca.Build()); nil == err {
 		p.Debug("提交代码完成", field.New("dir", p.Dir))
 	}
