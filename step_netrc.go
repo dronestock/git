@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"path/filepath"
 
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
@@ -27,7 +26,7 @@ func (s *stepNetrc) Runnable() bool {
 }
 
 func (s *stepNetrc) Run(_ context.Context) (err error) {
-	netrcFilepath := filepath.Join(os.Getenv(homeEnv), netrcFilename)
+	netrcFilepath := s.home(netrcFilename)
 	if _, se := os.Stat(netrcFilepath); nil == se || nil != se && os.IsExist(se) {
 		_ = os.Remove(netrcFilepath)
 	}

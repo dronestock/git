@@ -33,7 +33,7 @@ func (s *stepSsh) Runnable() bool {
 }
 
 func (s *stepSsh) Run(_ context.Context) (err error) {
-	home := filepath.Join(os.Getenv(homeEnv), sshHome)
+	home := s.home(sshHome)
 	keyfile := filepath.Join(home, sshKeyFilename)
 	configFile := filepath.Join(home, sshConfigDir)
 	if err = s.makeSSHHome(home); nil != err {

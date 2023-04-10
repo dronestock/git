@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/dronestock/drone"
@@ -126,6 +127,17 @@ func (p *plugin) checkout() (checkout string) {
 		checkout = p.Commit
 	} else {
 		checkout = p.Branch
+	}
+
+	return
+}
+
+func (p *plugin) home(paths ...string) (path string) {
+	if home, uhe := os.UserHomeDir(); nil == uhe {
+		finals := make([]string, 0, len(paths)+1)
+		finals = append(finals, home)
+		finals = append(finals, paths...)
+		path = filepath.Join(finals...)
 	}
 
 	return

@@ -2,7 +2,6 @@ package main
 
 const (
 	pull            = "pull"
-	homeEnv         = "HOME"
 	sshHome         = ".ssh"
 	sshConfigDir    = "config"
 	sshKeyFilename  = "id_rsa"

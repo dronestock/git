@@ -44,7 +44,7 @@ func (s *stepPull) Run(_ context.Context) (err error) {
 
 	// 处理子模块因为各种原因无法下载的情况
 	if s.Submodules {
-		sa := args.New().Build().Subcommand("submodule", "update").Flag("init").Flag("recursive").Flag("remote")
+		sa := args.New().Build().Subcommand("submodule", "update").Flag("init", "recursive", "remote")
 		err = s.git(sa.Build())
 	}
 
