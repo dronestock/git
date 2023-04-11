@@ -26,7 +26,7 @@ func (s *stepNetrc) Runnable() bool {
 }
 
 func (s *stepNetrc) Run(_ context.Context) (err error) {
-	netrcFilepath := s.home(netrcFilename)
+	netrcFilepath := s.Home(netrcFilename)
 	if _, se := os.Stat(netrcFilepath); nil == se || nil != se && os.IsExist(se) {
 		_ = os.Remove(netrcFilepath)
 	}
