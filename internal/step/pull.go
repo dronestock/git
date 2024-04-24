@@ -61,7 +61,8 @@ func (p *Pull) clone(ctx *context.Context) (err error) {
 	arguments.Flag("config").Add("http.sslVerify=false")
 	arguments.Add(p.project.Dir)
 	if ee := p.git.Exec(ctx, arguments.Build()); nil != ee {
-		err = p.again(ctx, arguments.Build())
+		// err = p.again(ctx, arguments.Build())
+		err = ee
 	}
 
 	return
