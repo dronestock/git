@@ -68,6 +68,7 @@ func (p *Pull) clone(ctx *context.Context) (err error) {
 	return
 }
 
+// nolint:unused
 func (p *Pull) again(ctx *context.Context, args *args.Args) (err error) {
 	if be := p.boost(ctx); nil != be {
 		err = be
