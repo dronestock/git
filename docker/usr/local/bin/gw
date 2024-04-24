@@ -1,11 +1,7 @@
 #!/bin/sh
 
-# 增加额外本地域名配置文件
-for file in /etc/hosts.d/*; do
-    if test -f "${file}"; then
-        cat "${file}" >> /etc/hosts
-    fi
-done
+# 拉取最新的地址到系统
+curl https://hosts.gitcdn.top/hosts.txt >> /etc/hosts
 
 # 执行程序
 /usr/local/bin/git
