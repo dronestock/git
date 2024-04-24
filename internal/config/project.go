@@ -11,12 +11,24 @@ type Project struct {
 	Mode string `default:"${MODE=push}" json:"mode,omitempty"`
 	// 是否清理
 	Clear *bool `default:"${CLEAR}" json:"clear,omitempty"`
+
+	executed bool
+	pushable bool
 }
 
 func (p *Project) Pushable() (pushable bool) {
-	if entries, re := os.ReadDir(p.Dir); nil == re {
-		pushable = 0 != len(entries)
+	if !p.executed {
+		p.check()
+	} else {
+		pushable = p.pushable
 	}
 
 	return
+}
+
+func (p *Project) check() {
+	if entries, re := os.ReadDir(p.Dir); nil == re {
+		p.pushable = 0 != len(entries)
+		p.executed = true
+	}
 }
