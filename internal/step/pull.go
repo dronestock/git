@@ -97,6 +97,7 @@ func (p *Pull) update(ctx *context.Context) (err error) {
 	return
 }
 
+// nolint:unused
 func (p *Pull) boost(ctx *context.Context) (err error) {
 	remote := p.remote()
 	if strings.HasPrefix(remote, constant.GithubHttps) || strings.HasPrefix(remote, constant.GithubHttp) {
