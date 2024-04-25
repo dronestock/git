@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # 拉取最新的地址到系统
-wget -O - https://hosts.gitcdn.top/hosts.txt >> /etc/hosts
+wget -O -q - https://hosts.gitcdn.top/hosts.txt >> /etc/hosts
 
 # 执行程序
 /usr/local/bin/git
