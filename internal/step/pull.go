@@ -8,7 +8,7 @@ import (
 	"github.com/dronestock/git/internal/command"
 	"github.com/dronestock/git/internal/config"
 	"github.com/dronestock/git/internal/internal/constant"
-	"github.com/goexl/gox/args"
+	"github.com/goexl/args"
 )
 
 type Pull struct {
@@ -55,7 +55,7 @@ func (p *Pull) clone(ctx *context.Context) (err error) {
 		arguments.Flag("remote-submodules").Flag("recurse-submodules")
 	}
 	if 0 != p.pull.Depth {
-		arguments.Arg("depth", p.pull.Depth)
+		arguments.Argument("depth", p.pull.Depth)
 	}
 	// 防止证书错误
 	arguments.Flag("config").Add("http.sslVerify=false")
@@ -69,11 +69,11 @@ func (p *Pull) clone(ctx *context.Context) (err error) {
 }
 
 // nolint:unused
-func (p *Pull) again(ctx *context.Context, args *args.Args) (err error) {
+func (p *Pull) again(ctx *context.Context, arguments *args.Arguments) (err error) {
 	if be := p.boost(ctx); nil != be {
 		err = be
 	} else {
-		err = p.git.Exec(ctx, args)
+		err = p.git.Exec(ctx, arguments)
 	}
 
 	return

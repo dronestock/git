@@ -3,9 +3,10 @@ module github.com/dronestock/git
 go 1.22
 
 require (
-	github.com/dronestock/drone v1.1.9
+	github.com/dronestock/drone v1.2.1
+	github.com/goexl/args v0.0.1
 	github.com/goexl/gfx v0.1.7
-	github.com/goexl/gox v0.4.3
+	github.com/goexl/gox v0.4.4
 )
 
 require (
@@ -20,7 +21,7 @@ require (
 	github.com/goexl/baozheng v0.0.1 // indirect
 	github.com/goexl/env v0.0.2 // indirect
 	github.com/goexl/exception v0.0.1 // indirect
-	github.com/goexl/gex v0.3.2 // indirect
+	github.com/goexl/gex v0.3.3 // indirect
 	github.com/goexl/guc v0.0.7 // indirect
 	github.com/goexl/http v0.1.9 // indirect
 	github.com/goexl/log v0.0.7 // indirect

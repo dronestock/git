@@ -8,9 +8,9 @@ import (
 	"github.com/dronestock/git/internal/command"
 	"github.com/dronestock/git/internal/config"
 	"github.com/dronestock/git/internal/internal/constant"
+	"github.com/goexl/args"
 	"github.com/goexl/gfx"
 	"github.com/goexl/gox"
-	"github.com/goexl/gox/args"
 	"github.com/goexl/gox/field"
 	"github.com/goexl/gox/rand"
 )
@@ -82,7 +82,7 @@ func (p *Push) checkout(ctx *context.Context) (err error) {
 	p.base.Debug("是完整的Git仓库，无需初始化和配置", dir)
 	p.base.Debug("签出目标分支开始", dir)
 	// 签出目标分支
-	err = p.git.Exec(ctx, args.New().Build().Subcommand("checkout").Arg("B", p.repository.Branch).Build())
+	err = p.git.Exec(ctx, args.New().Build().Subcommand("checkout").Argument("B", p.repository.Branch).Build())
 	p.base.Debug("签出目标分支完成", dir)
 
 	return

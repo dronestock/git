@@ -8,7 +8,7 @@ import (
 	"github.com/dronestock/git/internal/config"
 	"github.com/dronestock/git/internal/internal/constant"
 	"github.com/dronestock/git/internal/internal/core"
-	"github.com/goexl/gox/args"
+	"github.com/goexl/args"
 )
 
 type Git struct {
@@ -29,8 +29,8 @@ func NewGit(base *drone.Base, binary *config.Binary, project *config.Project) *G
 	}
 }
 
-func (g *Git) Exec(ctx *context.Context, args *args.Args) (err error) {
-	command := g.base.Command(g.binary.Git).Args(args).Dir(g.project.Dir)
+func (g *Git) Exec(ctx *context.Context, arguments *args.Arguments) (err error) {
+	command := g.base.Command(g.binary.Git).Args(arguments).Dir(g.project.Dir)
 	environment := command.Environment()
 	environment.String(constant.SpeedLimit)
 	environment.String(constant.SpeedTime)
