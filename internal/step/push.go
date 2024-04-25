@@ -70,7 +70,7 @@ func (p *Push) init(ctx *context.Context) (err error) {
 		err = cue
 	} else if cee := p.exec(ctx, "config", "user.email", p.push.Email); nil != cee { // 设置邮箱
 		err = cee
-	} else if cae := p.exec(ctx, "config", "core.autocrlf", "false"); nil != cae {
+	} else if cae := p.exec(ctx, "config", "core.autocrlf", "false"); nil != cae { // 设置换行符
 		err = cae
 	}
 
@@ -93,9 +93,9 @@ func (p *Push) commit(ctx *context.Context) (name string, err error) {
 	p.base.Debug("提交代码开始", dir)
 	if ae := p.exec(ctx, "add", "."); nil != ae { // 只添加改变的文件
 		err = ae
-	} else if me := p.message(ctx, dir); nil != me {
+	} else if me := p.message(ctx, dir); nil != me { // 设置提交消息
 		err = me
-	} else { // 提交
+	} else { // 生成随机远端名字
 		name = rand.New().String().Build().Generate()
 	}
 
