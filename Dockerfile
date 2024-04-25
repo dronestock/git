@@ -46,4 +46,4 @@ RUN set -ex \
 ENV PLUGIN_TIMES 10
 
 # 执行命令
-ENTRYPOINT /usr/local/bin/gw
+ENTRYPOINT /usr/local/bin/bootstrap
