@@ -2,8 +2,8 @@ package internal
 
 import (
 	"github.com/dronestock/drone"
+	"github.com/dronestock/git/internal/command"
 	"github.com/dronestock/git/internal/config"
-	"github.com/dronestock/git/internal/internal/core"
 	"github.com/dronestock/git/internal/step"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/field"
@@ -25,7 +25,7 @@ type plugin struct {
 	// 执行程序
 	Binary config.Binary `default:"${BINARY}" json:"binary,omitempty"`
 
-	git *core.Git
+	git *command.Git
 }
 
 func New() drone.Plugin {
@@ -37,7 +37,7 @@ func (p *plugin) Config() drone.Config {
 }
 
 func (p *plugin) Setup() (err error) {
-	p.git = core.NewGit(&p.Base, &p.Binary, &p.Project)
+	p.git = command.NewGit(&p.Base, &p.Binary, &p.Project)
 
 	return
 }

@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 
 	"github.com/dronestock/drone"
+	"github.com/dronestock/git/internal/command"
 	"github.com/dronestock/git/internal/config"
 	"github.com/dronestock/git/internal/internal/constant"
-	"github.com/dronestock/git/internal/internal/core"
 	"github.com/goexl/gfx"
 	"github.com/goexl/gox"
 	"github.com/goexl/gox/args"
@@ -17,7 +17,7 @@ import (
 
 type Push struct {
 	base       *drone.Base
-	git        *core.Git
+	git        *command.Git
 	repository *config.Repository
 	project    *config.Project
 	credential *config.Credential
@@ -25,7 +25,7 @@ type Push struct {
 }
 
 func NewPush(
-	base *drone.Base, git *core.Git,
+	base *drone.Base, git *command.Git,
 	repository *config.Repository, project *config.Project, credential *config.Credential,
 	push *config.Push,
 ) *Push {

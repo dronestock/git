@@ -11,3 +11,11 @@ func NewEnvironment(key string, value any) *Environment {
 		value: value,
 	}
 }
+
+func (e *Environment) Key() string {
+	return e.key
+}
+
+func (e *Environment) Value() any {
+	return e.value
+}

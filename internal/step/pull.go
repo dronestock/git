@@ -5,14 +5,14 @@ import (
 	"os"
 	"strings"
 
+	"github.com/dronestock/git/internal/command"
 	"github.com/dronestock/git/internal/config"
 	"github.com/dronestock/git/internal/internal/constant"
-	"github.com/dronestock/git/internal/internal/core"
 	"github.com/goexl/gox/args"
 )
 
 type Pull struct {
-	git        *core.Git
+	git        *command.Git
 	repository *config.Repository
 	project    *config.Project
 	credential *config.Credential
@@ -20,7 +20,7 @@ type Pull struct {
 }
 
 func NewPull(
-	git *core.Git,
+	git *command.Git,
 	repository *config.Repository, project *config.Project, credential *config.Credential,
 	pull *config.Pull,
 ) *Pull {

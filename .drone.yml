@@ -19,6 +19,20 @@ get:
   name: token_github_storezhang
 ---
 
+kind: secret
+name: id_feishu
+get:
+  path: secrets
+  name: id_feishu
+---
+
+kind: secret
+name: secret_feishu
+get:
+  path: secrets
+  name: secret_feishu
+---
+
 
 kind: pipeline
 type: docker
@@ -117,6 +131,21 @@ steps:
             file: $${OUTPUT_WINDOWS}
           - name: $${NAME}-$${VERSION}-darwin-amd64
             file: $${OUTPUT_MAC}
+
+  - name: 通知
+    image: ccr.ccs.tencentyun.com/dronestock/feishu
+    pull: always
+    when:
+      status:
+        - success
+        - failure
+    settings:
+      id:
+        from_secret: id_feishu
+      secret:
+        from_secret: secret_feishu
+      notfound:
+        id: storezhang
 
 
 volumes:
