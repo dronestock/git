@@ -6,6 +6,7 @@ COPY --from=fastgithub /fastgithub /docker/opt/fastgithub
 # 复制脚本程序
 COPY docker /docker
 # 复制执行程序
+ARG TARGETPLATFORM
 COPY dist/${TARGETPLATFORM}/git /docker/usr/local/bin/
 
 
