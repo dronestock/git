@@ -45,9 +45,10 @@ clone:
 
 environment:
   NAME: git
-  OUTPUT_LINUX: git.amd64.lin
-  OUTPUT_WINDOWS: git.amd64.exe
-  OUTPUT_MAC: git.amd64.mac
+  OUTPUT_LINUX_DIR: dist/linux
+  OUTPUT_LINUX_ARM_V7: arm/v7
+  OUTPUT_LINUX_ARM64: arm64
+  OUTPUT_LINUX_AMD64: amd64
   CHANGELOG_TAG_OUTPUT: CHANGELOG.tag.md
 
 
@@ -64,20 +65,18 @@ steps:
         path: /var/lib/go
     settings:
       outputs:
-        - name: $${NAME}
+        - name: $${OUTPUT_LINUX_DIR}/$${OUTPUT_LINUX_AMD64}/$${NAME}
           os: linux
           arch: amd64
-        - name: $${OUTPUT_LINUX}
+        - name: $${OUTPUT_LINUX_DIR}/$${OUTPUT_LINUX_ARM64}/$${NAME}
           os: linux
-          arch: amd64
-        - name: $${OUTPUT_WINDOWS}
-          os: windows
-          arch: amd64
-        - name: $${OUTPUT_MAC}
-          os: darwin
-          arch: amd64
+          arch: arm64
+        - name: $${OUTPUT_LINUX_DIR}/$${OUTPUT_LINUX_ARM_V7}/$${NAME}
+          os: linux
+          arch: arm
+          arm: 7
 
-  - name: 推送
+  - name: 推包
     image: ccr.ccs.tencentyun.com/dronestock/docker
     pull: always
     privileged: true
@@ -88,9 +87,14 @@ steps:
       PASSWORD_DOCKER:
         from_secret: token_docker
       PASSWORD_CCR:
-        from_secret: password_tencentyun_ccr
+        from_secret: password_ccr
     settings:
       repository: dronestock/$${NAME}
+      platforms:
+        - arch: amd64
+        - arch: arm64
+        - arch: arm
+          variant: v7
       registries:
         - username: dronestock
           password: $${PASSWORD_DOCKER}
