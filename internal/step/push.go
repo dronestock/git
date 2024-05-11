@@ -46,7 +46,12 @@ func (p *Push) Runnable() bool {
 func (p *Push) Run(ctx *context.Context) (err error) {
 	if _, exists := gfx.Exists(filepath.Join(p.project.Dir, constant.GitHome)); !exists { // 是否需要初始化仓库
 		err = p.init(ctx)
-	} else if che := p.checkout(ctx); nil != che { // 签出新代码
+	}
+	if nil != err {
+		return
+	}
+
+	if che := p.checkout(ctx); nil != che { // 签出新代码
 		err = che
 	} else if name, coe := p.commit(ctx); nil != coe { // 提交代码
 		err = coe
