@@ -19,9 +19,8 @@ type Project struct {
 func (p *Project) Pushable() (pushable bool) {
 	if !p.executed {
 		p.check()
-	} else {
-		pushable = p.pushable
 	}
+	pushable = p.pushable
 
 	return
 }
@@ -29,6 +28,8 @@ func (p *Project) Pushable() (pushable bool) {
 func (p *Project) check() {
 	if entries, re := os.ReadDir(p.Dir); nil == re {
 		p.pushable = 0 != len(entries)
-		p.executed = true
+	} else {
+		p.pushable = true
 	}
+	p.executed = true
 }
