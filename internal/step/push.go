@@ -87,7 +87,7 @@ func (p *Push) checkout(ctx *context.Context) (err error) {
 	p.base.Debug("是完整的Git仓库，无需初始化和配置", dir)
 	p.base.Debug("签出目标分支开始", dir)
 	// 签出目标分支
-	err = p.git.Exec(ctx, args.New().Build().Subcommand("checkout").Argument("B", p.repository.Branch).Build())
+	err = p.git.Exec(ctx, args.New().Build().Subcommand("checkout").Flag("B").Add(p.repository.Branch).Build())
 	p.base.Debug("签出目标分支完成", dir)
 
 	return
