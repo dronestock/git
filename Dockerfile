@@ -1,5 +1,5 @@
 FROM slcnx/fastgithub AS fastgithub
-FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.19.1 AS builder
+FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.20.0 AS builder
 
 # 复制加速程序
 COPY --from=fastgithub /fastgithub /docker/opt/fastgithub
@@ -11,7 +11,7 @@ COPY dist/${TARGETPLATFORM}/git /docker/usr/local/bin/
 
 
 
-FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.19.1
+FROM ccr.ccs.tencentyun.com/storezhang/alpine:3.20.0
 
 LABEL author="storezhang<华寅>" \
     email="storezhang@gmail.com" \
