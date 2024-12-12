@@ -7,7 +7,7 @@ require (
 	github.com/dronestock/drone v1.2.6
 	github.com/goexl/args v0.0.3
 	github.com/goexl/gfx v0.2.5
-	github.com/goexl/gox v1.8.9
+	github.com/goexl/gox v1.9.2
 )
 
 require (
