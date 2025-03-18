@@ -1,7 +1,7 @@
 module github.com/dronestock/git
 
 go 1.22
-toolchain go1.23.4
+toolchain go1.24.1
 
 require (
 	github.com/dronestock/drone v1.2.6
@@ -12,7 +12,7 @@ require (
 
 require (
 	github.com/drone/envsubst v1.0.3 // indirect
-	github.com/expr-lang/expr v1.16.9 // indirect
+	github.com/expr-lang/expr v1.17.0 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.5 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
