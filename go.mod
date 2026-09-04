@@ -1,12 +1,12 @@
 module github.com/dronestock/git
 
-go 1.25.0
+go 1.27
 
 require (
 	github.com/dronestock/drone v1.2.6
 	github.com/goexl/args v0.0.3
 	github.com/goexl/gfx v0.2.8
-	github.com/goexl/gox v1.9.2
+	github.com/goexl/gox v1.9.3
 )
 
 require (
